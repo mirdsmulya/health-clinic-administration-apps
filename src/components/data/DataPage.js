@@ -28,7 +28,7 @@ class DataPage extends React.Component {
 	}
 
 	dataRow(data, index) {
-		return <tr key={index}>{data.name}</tr>;
+		return <div key={index}>{data.name}</div>;
 	}
 
 	//{this.props.data.map(this.dataRow)}

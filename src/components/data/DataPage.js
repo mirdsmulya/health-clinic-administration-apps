@@ -2,11 +2,57 @@ import React, {PropTypes} from 'react';
 import {Route, Link} from 'react-router';
 import { connect } from 'react-redux';
 import * as dataAction from '../../actions/dataAction';
+import {bindActionCreators} from 'redux';
+import DataList from './DataList';
 
 class DataPage extends React.Component {
 	constructor(props, context) {
 		super(props, context);
+	}
 
+	dataRow(data, index) {
+		return <div key={index}>{data.name}</div>;
+	}
+
+	render() {
+		const {datas} = this.props;
+		return(
+			<div>
+			<h1>Data Pasien</h1>
+			<DataList datas={datas} />
+			</div>
+
+		);
+	}
+}
+
+DataPage.propTypes = {
+	//dispatch: PropTypes.func.isRequired,
+	//datas: PropTypes.array.isRequired,
+	//createData: PropTypes.func.isRequired,
+	actions: PropTypes.object.isRequired,
+	datas: PropTypes.array.isRequired
+ };
+
+
+function mapStateToProps(state, ownProps) {
+	return {
+		datas: state.datas
+	};
+
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		//createData: data => dispatch(dataAction.createData(data)),
+		actions: bindActionCreators(dataAction, dispatch)
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataPage);
+//export default DataPage;
+
+/*
 		this.state = {
 			data: {name: ""}
 		};
@@ -22,51 +68,25 @@ class DataPage extends React.Component {
 	}
 
 	onClickSave() {
-		alert('Saving ${this.state.data.name}');
-		this.props.dispatch(dataAction.createData(this.state.data));
+		//alert('Saving ${this.state.data.name}');
+		//this.props.createData(this.state.data);
+		this.props.actions.createData(this.state.data);
 
 	}
-
-	dataRow(data, index) {
-		return <div key={index}>{data.name}</div>;
-	}
-
-	//{this.props.data.map(this.dataRow)}
-	render() {
-		return(
-			<div>
-			<h1>Data Pasien</h1>
-			<h2>Nama Pasien</h2>
-			{this.props.datas.map(this.dataRow)}
-			<h2>Tambahkan Data</h2>
-			<input
-				type="text"
-				onChange={this.ifDataChange}
-				value={this.state.data.name} />
-
-			<input
-				type="submit"
-				value="Save"
-				onClick={this.onClickSave} />
-			</div>
-
-			);
-	}
-}
-
-DataPage.propTypes = {
-	dispatch: PropTypes.func.isRequired,
-	datas: PropTypes.array.isRequired
-
-};
-
-function mapStateToProps(state, ownProps) {
-	return {
-		datas: state.datas
-	};
-
-}
+*/
 
 
-export default connect(mapStateToProps)(DataPage);
-//export default DataPage;
+
+/*
+<h2>Tambahkan Data</h2>
+<input
+	type="text"
+	onChange={this.ifDataChange}
+	value={this.state.data.name} />
+
+<input
+	type="submit"
+	value="Save"
+	onClick={this.onClickSave} />
+</div>
+*/

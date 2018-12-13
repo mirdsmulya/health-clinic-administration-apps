@@ -1,9 +1,10 @@
+import * as types from '../actions/actionTypes';
+
+
 export default function dataReducer(state = [], action) {
   switch (action.type) {
-    case 'CREATE_DATA':
-      return [...state,
-        Object.assign({}, action.data)
-      ];
+    case types.LOAD_DATA_SUCCESS:
+      return action.datas;
       default:
         return state;
   }

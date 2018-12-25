@@ -19,3 +19,4 @@ DataListRow.propTypes = {
 };
 
 export default DataListRow;
+//{'/datas/' + data.id}

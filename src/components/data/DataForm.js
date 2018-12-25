@@ -1,18 +1,30 @@
+
 import React, {PropTypes} from 'react';
 import TextInput from '../common/TextInput';
-//import SelectInput from '../common/SelectInput';
+import SelectInput from '../common/SelectInput';
 
 
-const DataForm = ({data, onSave, onChange, loading, errors}) => {
+const DataForm = ({data, onSave, onChange, loading, errors, allDatas}) => {
   return (
     <form>
+      <div>
       <h1>Pengaturan Data Pasien </h1>
+      </div>
       <TextInput
         name="name"
         label="Name"
         value={data.name}
         onChange={onChange}
         error={errors.name} />
+
+      <SelectInput
+        name="dataId"
+        label="ID"
+        value={data.id}
+        defaultOption="Pilih ID"
+        options={allDatas}
+        onChange={onChange}
+        error={errors.dataId} />
 
       <TextInput
         name="address"
@@ -48,6 +60,8 @@ const DataForm = ({data, onSave, onChange, loading, errors}) => {
         value={loading ? 'Saving..' : 'Save'}
         className="btn btn-primary"
         onClick={onSave}/>
+
+
     </form>
 
   );
@@ -58,7 +72,8 @@ DataForm.propTypes = {
   data: React.PropTypes.object.isRequired,
   loading: React.PropTypes.bool.isRequired,
   errors: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.function.isRequired,
-  onSave: React.PropTypes.function.isRequired
+  onChange: React.PropTypes.function,
+  onSave: React.PropTypes.function,
+  allDatas: React.PropTypes.array
 };
 export default DataForm;

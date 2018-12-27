@@ -8,6 +8,7 @@ const DataListRow = ({data}) => {
       <td>{data.gender}</td>
       <td>{data.age}</td>
       <td>{data.address}</td>
+      <td><button className="btn">Masukan Antrian</button></td>
 
 
     </tr>

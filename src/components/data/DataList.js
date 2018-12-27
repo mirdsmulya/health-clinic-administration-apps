@@ -11,6 +11,7 @@ const DataList = ({datas}) => {
         <th>Jenis Kelamin</th>
         <th>Umur</th>
         <th>Alamat</th>
+        <th>Satus</th>
 
 
       </tr>

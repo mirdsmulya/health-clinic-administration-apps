@@ -5,10 +5,11 @@ const DataListRow = ({data}) => {
   return(
     <tr>
       <td><Link to={'/datas/' + data.id}>{data.name}</Link></td>
+      <td>{data.gender}</td>
       <td>{data.age}</td>
       <td>{data.address}</td>
-      <td>{data.lastArrived}</td>
-      <td>{data.medicalHistory}</td>
+
+
     </tr>
   );
 };
@@ -20,3 +21,7 @@ DataListRow.propTypes = {
 
 export default DataListRow;
 //{'/datas/' + data.id}
+
+
+//<td>{data.lastArrived}</td>
+//<td>{data.medicalHistory}</td>

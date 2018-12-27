@@ -19,6 +19,7 @@ class DataPage extends React.Component {
 		return(
 			<div>
 			<h1>Data Pasien</h1>
+			<Link to="datas" className="btn btn-primary btn-lg">Tambah</Link>
 			<DataList datas={datas} />
 			</div>
 
@@ -50,43 +51,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataPage);
-//export default DataPage;
-
-/*
-		this.state = {
-			data: {name: ""}
-		};
-		this.ifDataChange = this.ifDataChange.bind(this);
-		this.onClickSave = this.onClickSave.bind(this);
-	}
-
-	ifDataChange(event) {
-		const data = this.state.data;
-		data.name = event.target.value;
-		//alert({this.state.data.name});
-		this.setState({data: data});
-	}
-
-	onClickSave() {
-		//alert('Saving ${this.state.data.name}');
-		//this.props.createData(this.state.data);
-		this.props.actions.createData(this.state.data);
-
-	}
-*/
-
-
-
-/*
-<h2>Tambahkan Data</h2>
-<input
-	type="text"
-	onChange={this.ifDataChange}
-	value={this.state.data.name} />
-
-<input
-	type="submit"
-	value="Save"
-	onClick={this.onClickSave} />
-</div>
-*/

@@ -8,10 +8,11 @@ const DataList = ({datas}) => {
       <thead>
       <tr>
         <th>Nama</th>
+        <th>Jenis Kelamin</th>
         <th>Umur</th>
         <th>Alamat</th>
-        <th>Terakhir Berobat</th>
-        <th>Riwayat Medis Terakhir</th>
+
+
       </tr>
       </thead>
       <tbody>
@@ -31,3 +32,6 @@ DataList.propTypes = {
 };
 
 export default DataList;
+
+//<th>Terakhir Berobat</th>
+//<th>Riwayat Medis Terak</th>

@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as dataAction from '../../actions/dataAction';
 import DataForm from './DataForm';
-
+import HistoryList from './HistoryList';
 
 class ManageDataPage extends React.Component {
   constructor(props, context) {
@@ -13,6 +13,7 @@ class ManageDataPage extends React.Component {
       error: {}
     };
     this.updateDataState = this.updateDataState.bind(this);
+    this.manageTitle = this.manageTitle.bind(this);
   }
 
   updateDataState(event) {
@@ -22,25 +23,32 @@ class ManageDataPage extends React.Component {
     return this.setState({data: data});
 
   }
+  manageTitle() {
+    return <h1>Hai</h1>;
+
+  }
 
   render() {
     return(
 
       <div>
-        <h1>Manage Data</h1>
-
+      <manageTitle />
+      {this.manageTitle}
       <DataForm
+        allDatas= {this.props.datas}
         data={this.state.data}
         onChange={this.updateDataState}
         errors={this.state.errors}
       />
+    <HistoryList />
   </div>
 
     );
   }
 }
 ManageDataPage.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  datas: PropTypes.array.isRequired
 
 };
 
@@ -54,7 +62,8 @@ function mapStateToProps(state, ownProps) {
   });
 
   return {
-    data: data
+    data: data,
+    datas: dataFormattedForDropdown
 
   };
 }

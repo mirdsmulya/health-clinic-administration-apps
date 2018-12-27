@@ -2,9 +2,9 @@ import React, {PropTypes} from 'react';
 
 
 
-const TextInput = ({name, value, error, placeholder, onChange, label }) => {
+const TextInput = ({name, value, errors, placeholder, onChange, label }) => {
   let wrapperClass='form-group';
-  if (error && error.length > 0) {
+  if (errors && errors.length > 0) {
     wrapperClass += " " + "Has error";
   }
   return (
@@ -19,7 +19,7 @@ const TextInput = ({name, value, error, placeholder, onChange, label }) => {
         onChange={onChange}
         value={value} />
 
-      {error && <div className="alert alert-danger">{error}</div>}
+      {errors && <div className="alert alert-danger">{errors}</div>}
       </div>
     </div>
 
@@ -27,7 +27,7 @@ const TextInput = ({name, value, error, placeholder, onChange, label }) => {
 };
 
 TextInput.propTypes = {
-  error: React.PropTypes.string.isRequired,
+  errors: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
   onChange: React.PropTypes.func,
   value: React.PropTypes.string.isRequired,

@@ -15,44 +15,32 @@ const DataForm = ({data, onSave, onChange, loading, errors, allDatas}) => {
         label="Name"
         value={data.name}
         onChange={onChange}
-        error={errors.name} />
+         />
 
       <SelectInput
-        name="dataId"
-        label="ID"
-        value={data.id}
-        defaultOption="Pilih ID"
+        name="gender"
+        label="Jenis Kelamin"
+        value={data.gender}
+        defaultOption="--"
         options={allDatas}
         onChange={onChange}
-        error={errors.dataId} />
+         />
+      <TextInput
+        name="age"
+        label="Usia"
+        value={data.age}
+        onChange={onChange}
+        />
+
 
       <TextInput
         name="address"
         label="Alamat"
         value={data.address}
         onChange={onChange}
-        error={errors.address} />
+        />
 
-      <TextInput
-        name="age"
-        label="Usia"
-        value={data.age}
-        onChange={onChange}
-        error={errors.age} />
-
-      <TextInput
-        name="lastArrived"
-        label="Tanggal Berobat Terakhir"
-        value={data.lastArrived}
-        onChange={onChange}
-        error={errors.lastArrived} />
-
-      <TextInput
-        name="medicalHistory"
-        label="Riwayat Medis Terakhir"
-        value={data.medicalHistory}
-        onChange={onChange}
-        error={errors.medicalHistory} />
+      <h1> </h1>
 
       <input
         type="submit"
@@ -77,3 +65,14 @@ DataForm.propTypes = {
   allDatas: React.PropTypes.array
 };
 export default DataForm;
+
+/*
+<SelectInput
+  name="dataId"
+  label="ID"
+  value={data.id}
+  defaultOption="Pilih ID"
+  options={allDatas}
+  onChange={onChange}
+   />
+*/

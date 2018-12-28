@@ -45,7 +45,7 @@ class ManageDataPage extends React.Component {
         errors={this.state.errors}
       />
       <HistoryList />
-
+      <HistoryListInput data={this.state.data} onChange={this.updateDataState} />
       <HistoryListRow data= {this.state.data} />
 
   </div>

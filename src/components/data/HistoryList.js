@@ -10,7 +10,7 @@ const HistoryList = () => {
         <th>Tanggal</th>
         <th>Diagnosa</th>
         <th>Terapi</th>
-        <th><button className="btn">Tambah Riwayat</button></th>
+        <th> Aksi </th>
 
       </tr>
       </thead>

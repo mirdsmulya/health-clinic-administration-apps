@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as dataAction from '../../actions/dataAction';
 import {bindActionCreators} from 'redux';
 import DataList from './DataList';
+import DataSearch from './DataSearch';
 
 class DataPage extends React.Component {
 	constructor(props, context) {
@@ -20,6 +21,7 @@ class DataPage extends React.Component {
 			<div>
 			<h1>Data Pasien</h1>
 			<Link to="datas" className="btn btn-primary btn-lg">Tambah</Link>
+			<DataSearch />
 			<DataList datas={datas} />
 			</div>
 

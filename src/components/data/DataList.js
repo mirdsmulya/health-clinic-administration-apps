@@ -17,9 +17,7 @@ const DataList = ({datas}) => {
       </tr>
       </thead>
       <tbody>
-        {datas.map(data =>
-          <DataListRow key={data.id} data={data} />
-        )}
+        {datas.map(data => <DataListRow key={data.id} data={data} />)}
       </tbody>
     </table>
 

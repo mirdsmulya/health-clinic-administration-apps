@@ -4,6 +4,10 @@ import {connect} from 'react-redux';
 import * as dataAction from '../../actions/dataAction';
 import DataForm from './DataForm';
 import HistoryList from './HistoryList';
+import HistoryListRow from './HistoryListRow';
+import HistoryListInput from './HistoryListInput';
+
+
 
 class ManageDataPage extends React.Component {
   constructor(props, context) {
@@ -40,7 +44,10 @@ class ManageDataPage extends React.Component {
         onChange={this.updateDataState}
         errors={this.state.errors}
       />
-    <HistoryList />
+      <HistoryList />
+
+      <HistoryListRow data= {this.state.data} />
+
   </div>
 
     );
@@ -74,3 +81,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDataPage);
+
+
+//<HistoryListInput data = {this.state.data} onChange={this.updateDataState}/>

@@ -1,14 +1,14 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
-const DataListRow = ({data}) => {
+const DataListRow = ({data, onEntry}) => {
   return(
     <tr>
       <td><Link to={'/datas/' + data.id}>{data.name}</Link></td>
       <td>{data.gender}</td>
       <td>{data.age}</td>
       <td>{data.address}</td>
-      <td><button className="btn">Masukan Antrian</button></td>
+      <td><button onClick={onEntry} data={data} className="btn">Masukan Antrian</button></td>
 
 
     </tr>
@@ -17,7 +17,8 @@ const DataListRow = ({data}) => {
 
 
 DataListRow.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  onEntry: PropTypes.function
 };
 
 export default DataListRow;

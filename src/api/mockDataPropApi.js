@@ -11,11 +11,10 @@ const datas = [
     address: "Jl. Kamuncang No 11, Cisarua",
     lastArrived: "12/09/2018",
     age: "50",
-    medicalHistory:
-      [
-        {date:" ", diagnose: "Typhus", therapy: "Antibiotik"},
-        {date:" ", diagnose: "Flu & batuk", therapy: "Therabex"}
-      ]
+    medicalHistory: [
+      {date:" ", diagnose: "Typhus", therapy: "Antibiotik"},
+      {date:" ", diagnose: "Flu & batuk", therapy: "Therabex"}
+    ]
 
   },
   {
@@ -26,10 +25,10 @@ const datas = [
     address: "Jl. Ibrahim Adjie No. 120, Karang Mekar",
     lastArrived: "16/11/2018",
     medicalHistory:
-      [
-        {date:" ", diagnose: "Typhus", therapy: "Antibiotik"},
-        {date:" ", diagnose: "Flu & batuk", therapy: "Therabex"}
-      ]
+    [
+      {date:" ", diagnose: "Typhus", therapy: "Antibiotik"},
+      {date:" ", diagnose: "Flu & batuk", therapy: "Therabex"}
+    ]
 
   },
   {
@@ -55,7 +54,7 @@ const datas = [
     lastArrived: "11/12/2018",
     medicalHistory:
       [
-        {date:" ", diagnose: "Typhus", therapy: "Antibiotik"},
+        {date:" ", diagnose: "Typhus", therapy: "Antibiotikkk"},
         {date:" ", diagnose: "Flu & batuk", therapy: "Therabex"}
       ]
 
@@ -72,9 +71,18 @@ const datas = [
         {date:" ", diagnose: "Typhus", therapy: "Antibiotik"},
         {date:" ", diagnose: "Flu & batuk", therapy: "Therabex"}
       ]
-    
+
   }
 ];
+
+const entrances = [
+  {
+
+  }
+];
+
+
+
 
 function replaceAll(str, find, replace) {
   return str.replace(new RegExp(find, 'g'), replace);
@@ -86,11 +94,29 @@ const generateId = (data) => {
 };
 
 class DataApi {
+
   static getAllDatas() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(Object.assign([], datas));
-      }, delay);
+        debugger;
+      }, 0);
+    });
+  }
+
+  static getDataById(dataId) {
+    return new Promise((resolve, reject) =>{
+      setTimeout(() => {
+        //const datas = Object.asssign({}, datas);
+        const indexOfDataToDisplay = datas.findIndex(data => {data.id == dataId;});
+        //const data = datas[indexOfDataToDisplay];
+        //var data = datas.find(datas, {id: dataId });
+        //var data = datas[indexOfDataToDisplay];
+        var data= datas.pop();
+
+        resolve(Object.assign({}, datas.pop()));
+        debugger;
+      }, 0);
     });
   }
 
@@ -112,7 +138,7 @@ class DataApi {
           //The server would generate ids and address's for new datas in a real app.
           //Cloning so copy returned is passed by value rather than by reference.
           data.id = generateId(data);
-          data.address = `http://www.pluralsight.com/datas/${data.id}`;
+          //data.address = `http://www.pluralsight.com/datas/${data.id}`;
           datas.push(data);
         }
 
@@ -132,6 +158,16 @@ class DataApi {
       }, delay);
     });
   }
+  static entranceAdd(data) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        entrances.push(data);
+
+        resolve(data);
+      }, delay);
+    });
+  }
+
 }
 
 export default DataApi;

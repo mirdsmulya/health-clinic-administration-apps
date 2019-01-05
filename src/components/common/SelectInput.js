@@ -7,11 +7,13 @@ const SelectInput = ({name, value, defaultOption, options, label, onChange, erro
       <div className="form-group">
         <label htmlFor={name}>{label}</label>
         <div className="field">
-          <select name="Jenis Kelamin">
-            <option value="">--</option>
-            <option value="Pria">Pria</option>
-            <option value="Wanita">Wanita</option>
-
+          <select name={name}
+                  value={value}
+                  onChange={onChange}>
+          <option value={value}>{value}</option>
+          <option value=''>--</option>
+          <option value="Pria">Pria</option>
+          <option value="Wanita">Wanita</option>
 
 
           </select>
@@ -45,4 +47,24 @@ className="form-control">
 <option value="">{defaultOption}</option>
 {options.map((option) => {
   return <option key={option.value} value={option.value}>{option.text}</option>;
+
+
+
+  <option value="">{value}</option>
+  <option value="Pria">Pria</option>
+  <option value="Wanita">Wanita</option>
+
+
+
+
+
+              <option value="">{defaultOption}</option>
+              {options.map((option) => {
+                <option value={option.value} key={option.value}>{option.text}</option>;})}
+
+
+
+
+
+
   */

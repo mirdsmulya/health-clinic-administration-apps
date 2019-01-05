@@ -4,7 +4,7 @@ import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
 
-const DataForm = ({data, onSave, onChange, loading, errors, allDatas}) => {
+const DataForm = ({data, onSave, onChange, loading, errors, allDatas, options}) => {
   return (
     <form>
       <div>
@@ -21,9 +21,8 @@ const DataForm = ({data, onSave, onChange, loading, errors, allDatas}) => {
         name="gender"
         label="Jenis Kelamin"
         value={data.gender}
-        defaultOption="--"
-        options={allDatas}
         onChange={onChange}
+        options={options}
          />
       <TextInput
         name="age"
@@ -62,7 +61,8 @@ DataForm.propTypes = {
   errors: React.PropTypes.object.isRequired,
   onChange: React.PropTypes.function,
   onSave: React.PropTypes.function,
-  allDatas: React.PropTypes.array
+  allDatas: React.PropTypes.array,
+  options: React.PropTypes.object.isRequired
 };
 export default DataForm;
 

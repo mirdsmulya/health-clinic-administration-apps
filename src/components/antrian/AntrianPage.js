@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import DataList from '../data/DataList';
-import AntrianList from './AntrianList'
+import AntrianList from './AntrianList';
 
 class ListAntrian extends React.Component {
   constructor(props) {

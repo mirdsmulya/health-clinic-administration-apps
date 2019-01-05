@@ -2,7 +2,8 @@ import React, {PropTypes} from 'react';
 import DataListRow from './DataListRow';
 
 
-const DataList = ({datas}) => {
+const DataList = ({datas, onEntry}) => {
+  let data=Object.assign({}, {data});
   return(
     <table className="table">
       <thead>
@@ -17,7 +18,8 @@ const DataList = ({datas}) => {
       </tr>
       </thead>
       <tbody>
-        {datas.map(data => <DataListRow key={data.id} data={data} />)}
+        {datas.map(data =>
+          <DataListRow key={data.id} data={data} onEntry={onEntry} />)}
       </tbody>
     </table>
 
@@ -27,7 +29,8 @@ const DataList = ({datas}) => {
 
 
 DataList.propTypes = {
-  datas: PropTypes.array.isRequired
+  datas: PropTypes.array.isRequired,
+  onEntry: PropTypes.function
 };
 
 export default DataList;

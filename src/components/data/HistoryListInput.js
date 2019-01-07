@@ -3,31 +3,31 @@ import React, {PropTypes} from 'react';
 import TextAreaInput from '../common/TextAreaInput';
 import TextInput from '../common/TextInput';
 
-const HistoryListInput = ({data, onChange}) => {
+const HistoryListInput = ({med, onChange, onClick}) => {
   return(
     <tr>
     <td><TextInput
           name = "date"
           placeholder= "Tanggal"
           onChange = {onChange}
-          value= {data.medicalHistory.date}
+          value= {med.date}
         />
     </td>
       <td><TextInput
             name = "diagnose"
             placeholder= "Diagnosa"
             onChange = {onChange}
-            value= {data.medicalHistory.diagnose}
+            value= {med.diagnose}
           />
       </td>
       <td><TextInput
             name = "therapy"
             placeholder= "Terapi"
             onChange = {onChange}
-            value= {data.medicalHistory.therapy}
+            value= {med.therapy}
           />
       </td>
-      <td><button className="btn">Tambah Riwayat</button></td>
+      <td><button className="btn" onClick={onClick}>Tambah Riwayat</button></td>
 
     </tr>
   );
@@ -35,8 +35,9 @@ const HistoryListInput = ({data, onChange}) => {
 
 
 HistoryListInput.propTypes = {
-  data: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.func
+  med: React.PropTypes.object.isRequired,
+  onChange: React.PropTypes.func,
+  onClick:  React.PropTypes.fucnc
 };
 
 export default HistoryListInput;

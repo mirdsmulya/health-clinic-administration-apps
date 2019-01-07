@@ -16,23 +16,18 @@ class ManageDataPage extends React.Component {
     this.state = {
       data: Object.assign({}, this.props.data),
       //data: {},
-      error: {}
+      error: {},
+      med: Object.assign({}, this.props.med)
     };
-    let test = this.state.data;
     debugger;
+    //let test = this.state.data;
     this.updateDataState = this.updateDataState.bind(this);
-    this.manageTitle = this.manageTitle.bind(this);
     this.onSave = this.onSave.bind(this);
+    this.addHistory = this.addHistory.bind(this);
+    this.updateMedState = this.updateMedState.bind(this);
   }
 
-  componentWillMount() {
-    let dataId = this.props.params.id;
-    //this.setState({data: data});
 
-
-    //this.setState({data: DataApi.getDataById(dataId)});
-    debugger;
-  }
 
   updateDataState(event) {
     const field = event.target.name;
@@ -41,25 +36,42 @@ class ManageDataPage extends React.Component {
     return this.setState({data: data});
 
   }
+
+
+  updateMedState(event) {
+    const field = event.target.name;
+    let med = Object.assign({}, this.state.med);
+    med[field] = event.target.value;
+    return this.setState({med: med});
+
+  }
+
+
   onSave(event) {
+    let dataId = this.props.params.id;
     event.preventDefault();
     let data = Object.assign({}, this.state.data);
-    DataApi.saveData(data);
+    DataApi.saveData(data)
+    .then((redirect) => {this.context.router.push('/data');
+    return redirect; });
+
+    debugger;
     //this.setState({data: DataApi.saveData(data)});
 
   }
 
+  addHistory(event) {
+    let id = this.props.params.id;
+    event.preventDefault();
+    let data = Object.assign({}, this.state.data);
+    let med = Object.assign({}, this.state.med);
 
-
-  manageTitle() {
-    return <h1>Hai</h1>;
-
+    DataApi.addHistory(data, med)
+    .then((redirect) => {this.context.router.push('/data'+ id)});
   }
 
   render() {
-
-    debugger;
-
+    //debugger;
     return(
 
       <div>
@@ -71,14 +83,14 @@ class ManageDataPage extends React.Component {
         onChange={this.updateDataState}
         errors={this.state.errors}
         onSave={this.onSave}
-        options={this.props.gender}
-      />
-    <HistoryList medicalHistory={this.props.medicalHistory}
-                data={this.state.data}
-                onChange={this.updateDataState}
+        />
+      <HistoryList medicalHistory={this.props.medicalHistory}
+                med={this.state.med}
+                onChange={this.updateMedState}
+                addHistory={this.addHistory}
                 />
 
-  </div>
+      </div>
 
     );
 
@@ -87,14 +99,18 @@ class ManageDataPage extends React.Component {
 ManageDataPage.propTypes = {
   data: PropTypes.object.isRequired,
   datas: PropTypes.array.isRequired,
-  medicalHistory: PropTypes.object.isRequired
+  medicalHistory: PropTypes.array.isRequired,
+  med: PropTypes.object.isRequired
 
 
 };
 
+ManageDataPage.contextTypes = {
+  router: PropTypes.object
+};
+
 function getDataById(datas, id) {
   const data = datas.filter(data => data.id == id);
-  debugger;
   if (data) return data[0];
   return null;
 
@@ -103,10 +119,11 @@ function getDataById(datas, id) {
 function mapStateToProps(state, ownProps) {
 
   let data = {id:'',name:'', gender:'', age:'', address:'', medicalHistory:[]};
+  //let dataMed = data.medicalHistory;
+  let med = {date:'', diagnose:'', therapy:''};
 
   const dataId = ownProps.params.id;
   //const datas = DataApi.getAllDatas().then(k => getDataById(datas, dataId));
-  let gender = ['Pria', 'Wanita'];
   if (dataId) {
     data = getDataById(state.datas, dataId);
 
@@ -124,7 +141,7 @@ function mapStateToProps(state, ownProps) {
     data: data,
     datas: state.datas,
     medicalHistory: medicalHistory,
-    gender: gender
+    med: med
     //datas: dataFormattedForDropdown
 
   };

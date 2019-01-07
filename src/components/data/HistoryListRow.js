@@ -1,12 +1,13 @@
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 
-const HistoryListRow = ({data}) => {
+const HistoryListRow = ({data, onClick}) => {
   return(
     <tr>
       <td>{data.date}</td>
       <td>{data.diagnose}</td>
       <td>{data.therapy}</td>
+      <td><button className="btn" onClick={onClick}>Hapus</button></td>
 
     </tr>
   );
@@ -14,7 +15,8 @@ const HistoryListRow = ({data}) => {
 
 
 HistoryListRow.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  onClick: PropTypes.func
 };
 
 export default HistoryListRow;

@@ -6,12 +6,25 @@ import {bindActionCreators} from 'redux';
 import DataList from './DataList';
 import DataSearch from './DataSearch';
 //import DataApi from '../../api/mockDataPropApi';
+//import {browserHistory} from 'react-router';
+import DataApi from '../../api/mockDataPropApi';
 
 class DataPage extends React.Component {
 	constructor(props, context) {
 		super(props, context);
+		this.state = {
+			//datas: Object.assign({}, this.props.datas)
+			datas: this.props.datas
+		};
+		debugger;
 		this.onEntry = this.onEntry.bind(this);
 
+	}
+
+	componentWillMount() {
+		DataApi.getAllDatas()
+		.then((data)=> {this.setState({datas: data })});
+		//this.setState({datas: DataApi.getAllDatas()})
 	}
 
 	dataRow(data, index) {
@@ -24,14 +37,16 @@ class DataPage extends React.Component {
 
 	}
 	render() {
-		const {datas} = this.props;
+		let datast = this.props.datas;
+		let dt = this.state.datas;
+		//const {datas} = this.props;
 		debugger;
 		return(
 			<div>
 			<h1>Data Pasien</h1>
 			<Link to="datas" className="btn btn-primary btn-lg">Tambah</Link>
 			<DataSearch />
-			<DataList datas={datas} onEntry={this.onEntry} />
+			<DataList datas={this.state.datas} onEntry={this.onEntry} />
 			</div>
 
 		);
@@ -48,9 +63,14 @@ DataPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
+	//let datas = DataApi.getAllDatas();
+	debugger;
 	return {
 		datas: state.datas
+		//datas: datas
 	};
+
+
 
 }
 

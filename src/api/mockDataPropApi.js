@@ -102,6 +102,7 @@ class DataApi {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(Object.assign([], datas));
+        debugger;
       }, 0);
     });
   }
@@ -127,6 +128,7 @@ class DataApi {
           //The server would generate ids and address's for new datas in a real app.
           //Cloning so copy returned is passed by value rather than by reference.
           data.id = generateId(data);
+          //data.push({medicalHistory:[]})
           datas.push(data);
           debugger;
         }

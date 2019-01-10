@@ -16,8 +16,8 @@ class ManageDataPage extends React.Component {
     this.state = {
       data: Object.assign({}, this.props.data),
       error: {},
-      med: Object.assign({}, this.props.med),
-      datas: Object.assign({}, DataApi.getAllDatas())
+      med: Object.assign({}, this.props.med)
+      //datas: Object.assign({}, DataApi.getAllDatas())
       //medicalHistory: Object.assign({}, this.props.medicalHistory)
     };
     debugger;
@@ -54,11 +54,12 @@ class ManageDataPage extends React.Component {
     let dataId = this.props.params.id;
     event.preventDefault();
     let data = Object.assign({}, this.state.data);
-    DataApi.saveData(data)
-    .then(this.setState({datas: DataApi.getAllDatas()}))
+    //DataApi.saveData(data)
+    this.props.actions.saveData(this.state.data)
+    .then(this.props.actions.loadDatas())
+    //.then(this.setState({datas: DataApi.getAllDatas()}))
+    //.then(this.props.actions.createData(this.state.data)))
     .then((redirect) => {this.context.router.push('/data');
-
-
     return redirect; });
 
     debugger;
@@ -73,8 +74,10 @@ class ManageDataPage extends React.Component {
     let med = Object.assign({}, this.state.med);
 
     DataApi.addHistory(data, med)
-    .then(this.setState({medicalHistory: Object.assign({}, this.props.medicalHistory)}))
-    .then((redirect) => {this.context.router.push('/data')})
+    //.then(this.props.actions.saveData(this.state.data))
+    //.then(this.setState({medicalHistory: Object.assign({}, this.props.medicalHistory)}))
+    .then(this.props.actions.loadDatas())
+    //.then((redirect) => {this.context.router.push('/data')})
     .then((redirect) => {this.context.router.push('/data/'+ id)});
   }
 
@@ -108,7 +111,8 @@ ManageDataPage.propTypes = {
   data: PropTypes.object.isRequired,
   datas: PropTypes.array.isRequired,
   medicalHistory: PropTypes.array.isRequired,
-  med: PropTypes.object.isRequired
+  med: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
 
 
 };
@@ -138,14 +142,10 @@ function getDataById(datas, id) {
 
 function mapStateToProps(state, ownProps) {
 
-  let data = {id:'',name:'', gender:'', age:'', address:'', medicalHistory:[{date:'', diagnose:'',therapy:''}]};
+  let data = {id:'',name:'', gender:'', age:'', address:'', medicalHistory:[]};
   let med = {date:'', diagnose:'', therapy:''};
-  //let medInitial = {medicalHistory:[]}
   med.date = String(getDateNumber());
-  //let dataS = this.props.state.datas;
   const dataId = ownProps.params.id;
-  //setState({datas: Dat})
-  //const datas = DataApi.getAllDatas().then(k => getDataById(datas, dataId));
   if (dataId) {
     //let dataS = getAllDatas().then(getDataById(datasS, data))
     data = getDataById(state.datas, dataId);
@@ -168,3 +168,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDataPage);
+
+
+/*
+
+
+*/

@@ -92,7 +92,8 @@ function replaceAll(str, find, replace) {
 
 //This would be performed on the server in a real app. Just stubbing in.
 const generateId = (data) => {
-  return replaceAll(data.name, ' ', '-');
+  //return replaceAll(data.name.toLowerCase(), ' ', '-');
+  return replaceAll(data.name.toLowerCase(), ' ', '-');
 
 };
 
@@ -116,7 +117,9 @@ class DataApi {
       setTimeout(() => {
         // Simulate server-side validation
         const minDataNameAge = 1;
-        if (data.name.length < minDataNameAge) {
+        const name = data.name;
+        debugger;
+        if (name.length < minDataNameAge) {
           reject(`name must be at least ${minDataNameAge} characters.`);
         }
 

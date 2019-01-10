@@ -6,7 +6,40 @@ export default function dataReducer(state = initialState.datas, action) {
   switch (action.type) {
     case types.LOAD_DATA_SUCCESS:
       return action.datas;
+    case types.CREATE_DATA_SUCCESS:
+      return [
+        ...state,
+        Object.assign({}, action.data)
+      ];
+    case types.UPDATE_DATA_SUCCESS:
+      return [
+        ...state.filter(data => data.id !== action.data.id),
+        Object.assign({}, action.data)
+      ];
+    case types.ADD_MEDICAL_HIST_SUCCESS:
+      return [
+        ...state,
+        Object.assign({}, action.data)
+      ]
+
+    default:
+      return state;
+  }
+
+}
+
+
+
+/*
+
+export default function dataReducer(state = [], action) {
+  switch (action.type) {
+    case "LOAD_DATA_SUCCESS":
+      return [...state,
+          Object.assign({}, action.datas)
+      ];
       default:
         return state;
   }
 }
+*/

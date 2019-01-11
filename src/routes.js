@@ -14,6 +14,7 @@ export default (
 		<Route path="data" component={DataPage} />
 		<Route path="datas" component={ManageDataPage} />
 		<Route path="datas/:id" component={ManageDataPage} />
+		<Route path="data/:id" component={DataPage} />
 		<Route path="antrian" component={AntrianPage} />
 	</Route>
 );

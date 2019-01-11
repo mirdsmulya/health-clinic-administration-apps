@@ -18,9 +18,9 @@ export default function dataReducer(state = initialState.datas, action) {
       ];
     case types.ADD_MEDICAL_HIST_SUCCESS:
       return [
-        ...state,
+        ...state.filter(data => data.id !== action.data.id),
         Object.assign({}, action.data)
-      ]
+      ];
 
     default:
       return state;

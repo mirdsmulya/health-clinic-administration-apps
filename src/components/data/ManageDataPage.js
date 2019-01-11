@@ -29,7 +29,8 @@ class ManageDataPage extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({data: this.props.data});
+    this.props.actions.loadDatas();
+    //this.setState({data: this.props.data});
   }
 
   updateDataState(event) {
@@ -53,12 +54,7 @@ class ManageDataPage extends React.Component {
   onSave(event) {
     let dataId = this.props.params.id;
     event.preventDefault();
-    let data = Object.assign({}, this.state.data);
-    //DataApi.saveData(data)
     this.props.actions.saveData(this.state.data)
-    .then(this.props.actions.loadDatas())
-    //.then(this.setState({datas: DataApi.getAllDatas()}))
-    //.then(this.props.actions.createData(this.state.data)))
     .then((redirect) => {this.context.router.push('/data');
     return redirect; });
 
@@ -70,15 +66,12 @@ class ManageDataPage extends React.Component {
   addHistory(event) {
     let id = this.props.params.id;
     event.preventDefault();
-    let data = Object.assign({}, this.state.data);
+    let data = Object.assign({}, this.props.data);
     let med = Object.assign({}, this.state.med);
-
-    DataApi.addHistory(data, med)
-    //.then(this.props.actions.saveData(this.state.data))
-    //.then(this.setState({medicalHistory: Object.assign({}, this.props.medicalHistory)}))
+    data = data.medicalHistory.splice(0,0, med);
+    this.props.actions.saveData(data)
     .then(this.props.actions.loadDatas())
-    //.then((redirect) => {this.context.router.push('/data')})
-    .then((redirect) => {this.context.router.push('/data/'+ id)});
+    //.then((redirect) => {this.context.router.push('/data/'+ id)});
   }
 
   render() {

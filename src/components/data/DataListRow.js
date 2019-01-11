@@ -8,7 +8,7 @@ const DataListRow = ({data, onEntry}) => {
       <td>{data.gender}</td>
       <td>{data.age}</td>
       <td>{data.address}</td>
-      <td><button onClick={onEntry} data={data} className="btn">Masukan Antrian</button></td>
+      <td><Link to={'/data/' + data.id} className="btn btn-primary">Masukan Antrian</Link></td>
 
 
     </tr>
@@ -22,8 +22,3 @@ DataListRow.propTypes = {
 };
 
 export default DataListRow;
-//{'/datas/' + data.id}
-
-
-//<td>{data.lastArrived}</td>
-//<td>{data.medicalHistory}</td>

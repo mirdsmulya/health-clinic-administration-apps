@@ -43,7 +43,7 @@ export function saveData(data) {
 
 export function addHistory(data) {
   return function(dispatch) {
-    return DataApi.addHistory(data).then(addedData => {
+    return DataApi.saveData(data).then(addedData => {
       dispatch(addMedicalHistorySuccess(addedData));
       debugger;
     }).catch(error => {

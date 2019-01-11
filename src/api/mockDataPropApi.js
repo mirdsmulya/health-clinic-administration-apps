@@ -172,15 +172,7 @@ class DataApi {
       }, delay);
     });
   }
-  static entranceAdd(data) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        entrances.push(data);
 
-        resolve(data);
-      }, delay);
-    });
-  }
 
 }
 

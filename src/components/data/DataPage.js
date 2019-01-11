@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {Route, Link} from 'react-router';
 import { connect } from 'react-redux';
 import * as dataAction from '../../actions/dataAction';
+import * as antrianAction from '../../actions/antrianAction';
 import {bindActionCreators} from 'redux';
 import DataList from './DataList';
 import DataSearch from './DataSearch';
@@ -22,8 +23,17 @@ class DataPage extends React.Component {
 	}
 
 	componentWillMount() {
-		DataApi.getAllDatas()
-		.then((data)=> {this.setState({datas: data })});
+		this.props.actions.loadDatas();
+		let dataId = this.props.dataId;
+		if (dataId) {
+			let datas = this.props.datas;
+			let data = datas.filter(data => data.id == dataId);
+			if (data) {
+				this.props.onentry.addAntrian(data);
+			}
+		}
+		//DataApi.getAllDatas()
+		//.then((data)=> {this.setState({datas: data })});
 		//this.setState({datas: DataApi.getAllDatas()})
 	}
 
@@ -33,6 +43,7 @@ class DataPage extends React.Component {
 
 	onEntry(event) {
 		event.preventDefault();
+		//this.props.onentry.addAntrian(this.)
 		//DataApi.entranceAdd(DataList(data));
 
 	}
@@ -46,7 +57,7 @@ class DataPage extends React.Component {
 			<h1>Data Pasien</h1>
 			<Link to="datas" className="btn btn-primary btn-lg">Tambah</Link>
 			<DataSearch />
-			<DataList datas={this.state.datas} onEntry={this.onEntry} />
+			<DataList datas={this.props.datas} onEntry={this.onEntry} />
 			</div>
 
 		);
@@ -58,15 +69,28 @@ DataPage.propTypes = {
 	//datas: PropTypes.array.isRequired,
 	//createData: PropTypes.func.isRequired,
 	actions: PropTypes.object.isRequired,
-	datas: PropTypes.array.isRequired
+	datas: PropTypes.array.isRequired,
+	onentry: PropTypes.object.isRequired,
+	dataId: PropTypes.string
  };
+
 
 
 function mapStateToProps(state, ownProps) {
 	//let datas = DataApi.getAllDatas();
+
+	const dataId = ownProps.params.id;
+	if (dataId) {
+		//getDataById(state.datas, dataId);
+		//onentry(addAntrian(data));
+	}
+
+
 	debugger;
 	return {
-		datas: state.datas
+		datas: state.datas,
+		antrian: state.antrian,
+		id: dataId
 		//datas: datas
 	};
 
@@ -77,7 +101,9 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
 	return {
 		//createData: data => dispatch(dataAction.createData(data)),
-		actions: bindActionCreators(dataAction, dispatch)
+		actions: bindActionCreators(dataAction, dispatch),
+		onentry: bindActionCreators(antrianAction, dispatch)
+
 	};
 }
 

@@ -8,13 +8,14 @@ import { connect } from 'react-redux';
 
 
 class ListAntrian extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
   }
 
   componentWillMount() {
-    this.props.onentry.loadDatas()
+    debugger;
+    //this.props.onentry.loadAntrian();
 
   }
   render() {

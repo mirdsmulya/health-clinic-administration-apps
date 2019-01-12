@@ -4,10 +4,10 @@ import delay from './delay';
 let antrian= [
   {
     id: "sri-rezeki",
+    number: '1',
     name: "Sri Rezeki Indriana",
     gender: "Wanita",
     address: "Jl. Kamuncang No 11, Cisarua",
-    lastArrived: "12/09/2018",
     age: "50",
     medicalHistory: [
       {date:"12/11/2018", diagnose: "Typhus", therapy: "Antibiotik"},
@@ -23,7 +23,8 @@ class AntrianApi {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve(Object.assign([], antrian));
-        }, delay);
+          debugger;
+        }, 0);
       });
   }
 
@@ -31,6 +32,9 @@ class AntrianApi {
     data = Object.assign({}, data);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        let number = antrian.length;
+        number = number + 2
+        data.number = number;
         antrian.push(data);
         resolve();
       }, delay);

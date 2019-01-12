@@ -9,9 +9,12 @@ import routes from './routes';
 import './styles/styles.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {loadDatas} from './actions/dataAction';
+import {loadAntrian} from './actions/antrianAction';
+
 
 const store = configureStore();
 store.dispatch(loadDatas());
+store.dispatch(loadAntrian());
 
 //<Provider store={store}>
 //

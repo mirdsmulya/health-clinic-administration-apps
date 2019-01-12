@@ -3,20 +3,19 @@ import React, {PropTypes} from 'react';
 import AntrianListRow from './AntrianListRow';
 
 
-const AntrianList = (antrian) => {
+const AntrianList = ({antrian}) => {
   return(
     <table className="table">
       <thead>
         <tr>
-          <th>No Urut</th>
+          <th>No Antrian</th>
           <th>Nama</th>
           <th>Alamat</th>
-          <th>Status</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
-        {antrian.map(data =>
-          <AntrianListRow key={data.id} data={data}  />)}
+        {antrian.map(data => <AntrianListRow key={data.id} data={data}  />)}
       </tbody>
     </table>
 

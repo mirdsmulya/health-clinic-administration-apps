@@ -104,7 +104,7 @@ class DataApi {
       setTimeout(() => {
         resolve(Object.assign([], datas));
         debugger;
-      }, 0);
+      }, delay);
     });
   }
 
@@ -131,6 +131,7 @@ class DataApi {
           //The server would generate ids and address's for new datas in a real app.
           //Cloning so copy returned is passed by value rather than by reference.
           data.id = generateId(data);
+          data.number = '';
           //data.push({medicalHistory:[]})
           datas.push(data);
           debugger;

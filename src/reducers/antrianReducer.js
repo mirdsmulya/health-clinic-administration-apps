@@ -5,7 +5,7 @@ import initialState from './initialState';
 export default function antrianReducer(state= initialState.antrian, action) {
   switch (action.type) {
     case type.LOAD_ANTRIAN_SUCCESS:
-      return action.data;
+      return action.antrian;
     case type.ADD_ANTRIAN_SUCCESS:
       return [
         ...state,

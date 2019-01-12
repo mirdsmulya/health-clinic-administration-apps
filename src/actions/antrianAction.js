@@ -1,5 +1,6 @@
 import AntrianApi from '../api/mockAntrianApi';
 import * as types from './actionTypes';
+import DataApi from '../api/mockDataPropApi';
 
 
 export function loadAntrianSuccess(antrian) {
@@ -13,19 +14,25 @@ export function deleteAntrianSuccess(data) {
 }
 
 
-export function loadDatas() {
+export function loadAntrian() {
   return function(dispatch) {
+    debugger;
     return AntrianApi.getAllAntrian().then(antrian => {
-      dispatch(loadAntrianSuccess(antrian))
-    })
-  }
+    //return DataApi.getAllDatas().then(datas => {
+      dispatch(loadAntrianSuccess(antrian));
+    }).catch(error => {
+      throw(error);
+    });
+  };
 
 }
 
 export function addAntrian(data) {
   return function(dispatch) {
     return AntrianApi.saveAntrian(data).then(data => {
-      dispatch(addAntrianSuccess(data))
-    })
-  }
+      dispatch(addAntrianSuccess(data));
+    }).catch(error => {
+      throw(error);
+    });
+  };
 }

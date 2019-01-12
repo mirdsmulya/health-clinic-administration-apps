@@ -30,6 +30,7 @@ export function loadDatas() {
 
 export function saveData(data) {
   return function(dispatch) {
+    debugger;
     return DataApi.saveData(data).then(savedData => {
       data.id ? dispatch(updateDataSuccess(savedData)) :
       dispatch(createDataSuccess(savedData));

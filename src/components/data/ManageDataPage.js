@@ -8,6 +8,7 @@ import HistoryListRow from './HistoryListRow';
 import HistoryListInput from './HistoryListInput';
 import DataApi from '../../api/mockDataPropApi';
 //import Router from 'react-router';
+import DataPage from './DataPage';
 
 
 class ManageDataPage extends React.Component {
@@ -16,9 +17,9 @@ class ManageDataPage extends React.Component {
     this.state = {
       data: Object.assign({}, this.props.data),
       error: {},
-      med: Object.assign({}, this.props.med)
+      med: Object.assign({}, this.props.med),
       //datas: Object.assign({}, DataApi.getAllDatas())
-      //medicalHistory: Object.assign({}, this.props.medicalHistory)
+      medicalHistory: Object.assign({}, this.props.medicalHistory)
     };
     debugger;
 
@@ -70,8 +71,12 @@ class ManageDataPage extends React.Component {
     let med = Object.assign({}, this.state.med);
     data = data.medicalHistory.splice(0,0, med);
     this.props.actions.saveData(data)
-    .then(this.props.actions.loadDatas())
-    //.then((redirect) => {this.context.router.push('/data/'+ id)});
+    .then(load => {this.props.actions.loadDatas(); return load; })
+    //.then(set => {this.setState({medicalHistory: this.props.medicalHistory});
+    //return set; });
+
+    //.then((redirect) => {this.context.router.push('/data/'+ id);
+    //return redirect; });
   }
 
   render() {
@@ -139,12 +144,18 @@ function mapStateToProps(state, ownProps) {
   let med = {date:'', diagnose:'', therapy:''};
   med.date = String(getDateNumber());
   const dataId = ownProps.params.id;
-  if (dataId) {
+  if (dataId && state.datas.length > 0) {
     //let dataS = getAllDatas().then(getDataById(datasS, data))
     data = getDataById(state.datas, dataId);
   }
   debugger;
-  let medicalHistory = data.medicalHistory;
+  let medicalHistory;
+  if (state.datas.length > 0) {
+    medicalHistory =  data.medicalHistory;
+  } else {
+    medicalHistory = [];
+
+  }
 
   return {
     data: data,

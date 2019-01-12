@@ -7,9 +7,13 @@ import DataPage from './components/data/DataPage';
 import ManageDataPage from './components/data/ManageDataPage';
 import AntrianPage from './components/antrian/AntrianPage';
 
+const NotFoundRoute = Route.NotFoundRoute;
+const DefaultRoute = Route.DefaultRoute;
+
 export default (
 	<Route path="/" component={App}>
 		<IndexRoute component={HomePage} />
+\
 		<Route path="about" component={AboutPage} />
 		<Route path="data" component={DataPage} />
 		<Route path="datas" component={ManageDataPage} />

@@ -24,18 +24,25 @@ class DataPage extends React.Component {
 
 	componentWillMount() {
 		this.props.actions.loadDatas();
-		let dataId = this.props.dataId;
+
+		let dataId = this.props.id;
+		let datas = this.props.datas;
+		debugger;
 		if (dataId) {
-			let datas = this.props.datas;
 			let data = datas.filter(data => data.id == dataId);
 			if (data) {
-				this.props.onentry.addAntrian(data);
-			}
+				debugger;
+				this.props.onentry.addAntrian(data)
+				.then((redirect) => {this.context.router.push('/antrian');
+				return redirect; });
+			};
 		}
+	}
 		//DataApi.getAllDatas()
 		//.then((data)=> {this.setState({datas: data })});
 		//this.setState({datas: DataApi.getAllDatas()})
-	}
+
+
 
 	dataRow(data, index) {
 		return <div key={index}>{data.name}</div>;
@@ -80,6 +87,11 @@ function mapStateToProps(state, ownProps) {
 	//let datas = DataApi.getAllDatas();
 
 	const dataId = ownProps.params.id;
+	const datas = state.datas;
+
+
+
+
 	if (dataId) {
 		//getDataById(state.datas, dataId);
 		//onentry(addAntrian(data));

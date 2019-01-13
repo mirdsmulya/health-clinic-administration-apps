@@ -15,7 +15,8 @@ class DataPage extends React.Component {
 		super(props, context);
 		this.state = {
 			//datas: Object.assign({}, this.props.datas)
-			datas: this.props.datas
+			datas: this.props.datas,
+			logicButton: true
 		};
 		debugger;
 		this.onEntry = this.onEntry.bind(this);
@@ -35,7 +36,7 @@ class DataPage extends React.Component {
 				this.props.onentry.addAntrian(data)
 				.then((redirect) => {this.context.router.push('/antrian');
 				return redirect; });
-			};
+			}
 		}
 	}
 		//DataApi.getAllDatas()
@@ -48,8 +49,16 @@ class DataPage extends React.Component {
 		return <div key={index}>{data.name}</div>;
 	}
 
+	logicButton() {
+		if (this.state.logicButton)
+			return <button className="btn btn-info">Masukan Antrian</button>;
+				return <button classNmae="btn btn-danger">Dalam Antrian</button>;
+	}
 	onEntry(event) {
 		event.preventDefault();
+		this.setState({logicButton: false});
+		debugger;
+		//logicButton();
 		//this.props.onentry.addAntrian(this.)
 		//DataApi.entranceAdd(DataList(data));
 
@@ -57,6 +66,7 @@ class DataPage extends React.Component {
 	render() {
 		let datast = this.props.datas;
 		let dt = this.state.datas;
+		let logicButtp = this.state.logicButton;
 		//const {datas} = this.props;
 		debugger;
 		return(
@@ -64,7 +74,7 @@ class DataPage extends React.Component {
 			<h1>Data Pasien</h1>
 			<Link to="datas" className="btn btn-primary btn-lg">Tambah</Link>
 			<DataSearch />
-			<DataList datas={this.props.datas} onEntry={this.onEntry} />
+			<DataList datas={this.props.datas} onEntry={this.onEntry} logicButton={this.state.logicButton} />
 			</div>
 
 		);
@@ -78,7 +88,8 @@ DataPage.propTypes = {
 	actions: PropTypes.object.isRequired,
 	datas: PropTypes.array.isRequired,
 	onentry: PropTypes.object.isRequired,
-	dataId: PropTypes.string
+	dataId: PropTypes.string,
+	logicButton: PropTypes.func
  };
 
 
@@ -111,6 +122,10 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
+
+
+	let logicButton = true;
+
 	return {
 		//createData: data => dispatch(dataAction.createData(data)),
 		actions: bindActionCreators(dataAction, dispatch),

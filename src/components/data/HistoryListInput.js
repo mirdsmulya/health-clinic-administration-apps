@@ -13,12 +13,15 @@ const HistoryListInput = ({med, onChange, onClick}) => {
           value= {med.date}
         />
     </td>
-      <td><TextInput
+      <td>
+      
+        <TextInput
             name = "diagnose"
             placeholder= "Diagnosa"
             onChange = {onChange}
             value= {med.diagnose}
           />
+
       </td>
       <td><TextInput
             name = "therapy"

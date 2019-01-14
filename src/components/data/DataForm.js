@@ -44,7 +44,7 @@ const DataForm = ({data, onSave, onChange, loading, errors, allDatas, options}) 
       <input
         type="submit"
         disabled={loading}
-        value={loading ? 'Saving..' : 'Save'}
+        value={loading ? 'Saving..' : 'Simpan'}
         className="btn btn-primary"
         onClick={onSave}/>
 

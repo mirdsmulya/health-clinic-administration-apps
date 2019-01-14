@@ -4,7 +4,7 @@
   "description": "Starter kit for React and Redux Pluralsight course by Cory House",
   "author": "Cory House",
   "license": "MIT",
-  "scripts" : {
+  "scripts": {
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel open:src lint:watch test:watch",
     "open:src": "babel-node tools/srcServer.js",
@@ -12,7 +12,6 @@
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha --reporter progress tools/tesSetup.js \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch"
-
   },
   "dependencies": {
     "babel-polyfill": "6.8.0",
@@ -25,7 +24,7 @@
     "react-router-redux": "4.0.4",
     "redux": "3.5.2",
     "redux-thunk": "2.0.1",
-    "toastr": "2.1.2"
+    "toastr": "^2.1.2"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",

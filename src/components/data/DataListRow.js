@@ -9,7 +9,6 @@ const DataListRow = ({data, onEntry, logicButton}) => {
       <td>{data.gender}</td>
       <td>{data.age}</td>
       <td>{data.address}</td>
-      <td><Link to={'/data/' + data.id} className="btn btn-info">Masukan Antrian</Link></td>
       <td><ButtonEnhance logicButton={logicButton} onClick={onEntry}/></td>
 
     </tr>

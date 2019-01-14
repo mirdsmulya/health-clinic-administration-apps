@@ -12,7 +12,7 @@ const DataList = ({datas, onEntry, logicButton}) => {
         <th>Jenis Kelamin</th>
         <th>Umur</th>
         <th>Alamat</th>
-        <th>Satus</th>
+        <th>Status</th>
 
 
       </tr>

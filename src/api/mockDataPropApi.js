@@ -121,21 +121,23 @@ class DataApi {
         debugger;
         if (name.length < minDataNameAge) {
           reject(`name must be at least ${minDataNameAge} characters.`);
+        } else {
+          if (data.id) {
+            const existingDataIndex = datas.findIndex(a => a.id == data.id);
+            datas.splice(existingDataIndex, 1, data);
+            debugger;
+            } else {
+            //Just simulating creation here.
+            //The server would generate ids and address's for new datas in a real app.
+            //Cloning so copy returned is passed by value rather than by reference.
+            data.id = generateId(data);
+            data.number = '';
+            //data.push({medicalHistory:[]})
+            datas.push(data);
+            debugger;
+          }
         }
 
-        if (data.id) {
-          const existingDataIndex = datas.findIndex(a => a.id == data.id);
-          datas.splice(existingDataIndex, 1, data);
-          } else {
-          //Just simulating creation here.
-          //The server would generate ids and address's for new datas in a real app.
-          //Cloning so copy returned is passed by value rather than by reference.
-          data.id = generateId(data);
-          data.number = '';
-          //data.push({medicalHistory:[]})
-          datas.push(data);
-          debugger;
-        }
 
         resolve(datas);
         debugger;

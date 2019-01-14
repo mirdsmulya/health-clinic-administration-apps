@@ -39,10 +39,6 @@ class DataPage extends React.Component {
 			}
 		}
 	}
-		//DataApi.getAllDatas()
-		//.then((data)=> {this.setState({datas: data })});
-		//this.setState({datas: DataApi.getAllDatas()})
-
 
 
 	dataRow(data, index) {
@@ -56,11 +52,15 @@ class DataPage extends React.Component {
 	}
 	onEntry(event) {
 		event.preventDefault();
-		this.setState({logicButton: false});
+		if (this.state.logicButton == true) {
+			this.setState({logicButton: false});
+		}
+		else {
+			this.setState({logicButton: true});
+		}
+
 		debugger;
-		//logicButton();
-		//this.props.onentry.addAntrian(this.)
-		//DataApi.entranceAdd(DataList(data));
+
 
 	}
 	render() {
@@ -100,13 +100,6 @@ function mapStateToProps(state, ownProps) {
 	const dataId = ownProps.params.id;
 	const datas = state.datas;
 
-
-
-
-	if (dataId) {
-		//getDataById(state.datas, dataId);
-		//onentry(addAntrian(data));
-	}
 
 
 	debugger;

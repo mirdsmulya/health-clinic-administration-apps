@@ -9,6 +9,7 @@ import HistoryListInput from './HistoryListInput';
 import DataApi from '../../api/mockDataPropApi';
 //import Router from 'react-router';
 import DataPage from './DataPage';
+import Toastr from 'toastr';
 
 
 class ManageDataPage extends React.Component {
@@ -18,8 +19,8 @@ class ManageDataPage extends React.Component {
       data: Object.assign({}, this.props.data),
       error: {},
       med: Object.assign({}, this.props.med),
-      //datas: Object.assign({}, DataApi.getAllDatas())
-      medicalHistory: Object.assign({}, this.props.medicalHistory)
+      medicalHistory: Object.assign({}, this.props.medicalHistory),
+      formPass: false
     };
     debugger;
 
@@ -27,10 +28,18 @@ class ManageDataPage extends React.Component {
     this.onSave = this.onSave.bind(this);
     this.addHistory = this.addHistory.bind(this);
     this.updateMedState = this.updateMedState.bind(this);
+    this.deleteHistory = this.deleteHistory.bind(this);
+    this.alertNotification = this.alertNotification.bind(this);
   }
 
+
+
   componentWillMount() {
-    this.props.actions.loadDatas();
+    //this.props.actions.loadDatas();
+    if (this.state.data) {
+      this.setState({medicalHistory: {}});
+    }
+
     //this.setState({data: this.props.data});
   }
 
@@ -55,10 +64,19 @@ class ManageDataPage extends React.Component {
   onSave(event) {
     let dataId = this.props.params.id;
     event.preventDefault();
-    this.props.actions.saveData(this.state.data)
-    .then((redirect) => {this.context.router.push('/data');
-    return redirect; });
 
+
+
+
+    !confirm('Yakin mau simpan data ini?');
+    this.props.actions.saveData(this.state.data);
+    if (dataId) {
+      this.context.router.push('/data');
+    }
+    //.then((redirect) => {this.context.router.push('/data');
+    //return redirect; });
+    Toastr.success('Data Tersimpan');
+    this.alertNotification();
     debugger;
     //this.setState({data: DataApi.saveData(data)});
 
@@ -66,18 +84,40 @@ class ManageDataPage extends React.Component {
 
   addHistory(event) {
     let id = this.props.params.id;
-    event.preventDefault();
+    //event.preventDefault();
     let data = Object.assign({}, this.props.data);
     let med = Object.assign({}, this.state.med);
     data = data.medicalHistory.splice(0,0, med);
     this.props.actions.saveData(data)
-    .then(load => {this.props.actions.loadDatas(); return load; })
-    //.then(set => {this.setState({medicalHistory: this.props.medicalHistory});
-    //return set; });
-
+    .then(this.setState({medicalHistory: this.props.medicalHistory}));
+    this.setState({med: {}});
     //.then((redirect) => {this.context.router.push('/data/'+ id);
     //return redirect; });
   }
+
+  deleteHistory(event) {
+    event.preventDefaulta();
+    let id = this.props.params.id;
+
+
+  }
+  alertNotification() {
+    if (this.state.data)
+      return <div className="alert alert-success"></div>;
+
+
+
+  }
+  validForm() {
+    this.state.error = {}
+    if (this.state.data.name.length > 0) {
+      this.setState({formPass: false})
+    } 
+    else {
+      this.setState({formPass: true});
+    }
+  }
+
 
   render() {
     //debugger;
@@ -85,8 +125,8 @@ class ManageDataPage extends React.Component {
 
       <div>
 
-      <manageTitle />
 
+      {this.alertNotification}
       <DataForm
         data={this.state.data}
         onChange={this.updateDataState}
@@ -97,6 +137,7 @@ class ManageDataPage extends React.Component {
                 med={this.state.med}
                 onChange={this.updateMedState}
                 addHistory={this.addHistory}
+                hapusRiwayat={this.deleteHistory}
                 />
 
       </div>
@@ -110,7 +151,8 @@ ManageDataPage.propTypes = {
   datas: PropTypes.array.isRequired,
   medicalHistory: PropTypes.array.isRequired,
   med: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  alertNotification: PropTypes.func
 
 
 };
@@ -119,10 +161,6 @@ ManageDataPage.contextTypes = {
   router: PropTypes.object
 };
 
-
-function getAllDatas() {
-  DataApi.getAllDatas();
-}
 
 function getDateNumber() {
   let d = new Date();
@@ -144,16 +182,20 @@ function mapStateToProps(state, ownProps) {
   let med = {date:'', diagnose:'', therapy:''};
   med.date = String(getDateNumber());
   const dataId = ownProps.params.id;
+  let medicalHistory;
   if (dataId && state.datas.length > 0) {
-    //let dataS = getAllDatas().then(getDataById(datasS, data))
     data = getDataById(state.datas, dataId);
+
   }
   debugger;
-  let medicalHistory;
-  if (state.datas.length > 0) {
-    medicalHistory =  data.medicalHistory;
-  } else {
+
+  if (state.datas.length > 0 && data.name == '') {
     medicalHistory = [];
+    debugger;
+  } else {
+    medicalHistory =  data.medicalHistory;
+
+    debugger;
 
   }
 
@@ -161,7 +203,8 @@ function mapStateToProps(state, ownProps) {
     data: data,
     datas: state.datas,
     medicalHistory: medicalHistory,
-    med: med
+    med: med,
+    id: dataId
     //datas: dataFormattedForDropdown
   };
 }

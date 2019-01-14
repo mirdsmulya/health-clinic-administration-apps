@@ -8,9 +8,9 @@
 	margin: 0 auto;
 }
 a.active {
-	color:orange;
+	color:green;
 }
 
 nav {
-	padding-top: 20px;
+	padding-top: 50px;
 }

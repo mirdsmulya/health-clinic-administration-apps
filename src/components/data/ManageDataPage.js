@@ -29,7 +29,9 @@ class ManageDataPage extends React.Component {
     this.addHistory = this.addHistory.bind(this);
     this.updateMedState = this.updateMedState.bind(this);
     this.deleteHistory = this.deleteHistory.bind(this);
-    this.alertNotification = this.alertNotification.bind(this);
+    this.validForm = this.validForm.bind(this);
+    this.validHistory = this.validHistory.bind(this);
+
   }
 
 
@@ -63,70 +65,79 @@ class ManageDataPage extends React.Component {
 
   onSave(event) {
     let dataId = this.props.params.id;
+    let data = this.state.data;
     event.preventDefault();
 
-
-
-
-    !confirm('Yakin mau simpan data ini?');
-    this.props.actions.saveData(this.state.data);
+    this.validForm()
     if (dataId) {
       this.context.router.push('/data');
+    } else {
+      this.context.router.push('/datas/'+ data.id);
     }
-    //.then((redirect) => {this.context.router.push('/data');
-    //return redirect; });
-    Toastr.success('Data Tersimpan');
-    this.alertNotification();
+    //this.setState({datas: this.props.datas});
     debugger;
-    //this.setState({data: DataApi.saveData(data)});
+
 
   }
 
   addHistory(event) {
     let id = this.props.params.id;
-    //event.preventDefault();
-    let data = Object.assign({}, this.props.data);
-    let med = Object.assign({}, this.state.med);
-    data = data.medicalHistory.splice(0,0, med);
-    this.props.actions.saveData(data)
-    .then(this.setState({medicalHistory: this.props.medicalHistory}));
-    this.setState({med: {}});
-    //.then((redirect) => {this.context.router.push('/data/'+ id);
-    //return redirect; });
+
+    if (id) {
+      this.validHistory();
+    } else{
+      this.props.actions.loadDatas()
+      .then(this.validHistory)
+    }
+
   }
 
   deleteHistory(event) {
     event.preventDefaulta();
     let id = this.props.params.id;
 
-
-  }
-  alertNotification() {
-    if (this.state.data)
-      return <div className="alert alert-success"></div>;
-
-
-
   }
   validForm() {
-    this.state.error = {}
-    if (this.state.data.name.length > 0) {
-      this.setState({formPass: false})
-    } 
-    else {
-      this.setState({formPass: true});
+    let data = Object.assign({}, this.state.data);
+    if (data.name.length > 0 &&
+        data.age.length > 0 &&
+        data.address.length > 0 &&
+        data.gender.length > 0) {
+      !confirm('Yakin simpan data ini?');
+      this.props.actions.saveData(this.state.data);
+      Toastr.success('Data Tersimpan');
+      debugger;
+    } else {
+      Toastr.warning('Data Belum Lengkap');
     }
-  }
 
+    debugger;
+
+  }
+  validHistory() {
+    let med = Object.assign({}, this.state.med);
+    let data = Object.assign({}, this.props.data);
+    if (med.date.length > 0 &&
+        med.diagnose.length > 0 &&
+        med.therapy.length > 0) {
+          !confirm('Yakin simpan data ini?');
+          data = data.medicalHistory.splice(0,0, med);
+          this.props.actions.saveData(data)
+          .then(this.setState({medicalHistory: this.props.medicalHistory}));
+          this.setState({med: this.props.initialMed});
+          Toastr.success('Data Berhasil Tersimpan');
+          debugger;
+        } else {
+          Toastr.warning('Data Riwayat Belum Terisi Dengan Lengkap')
+        }
+
+  }
 
   render() {
     //debugger;
     return(
 
       <div>
-
-
-      {this.alertNotification}
       <DataForm
         data={this.state.data}
         onChange={this.updateDataState}
@@ -153,8 +164,6 @@ ManageDataPage.propTypes = {
   med: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
   alertNotification: PropTypes.func
-
-
 };
 
 ManageDataPage.contextTypes = {
@@ -181,6 +190,7 @@ function mapStateToProps(state, ownProps) {
   let data = {id:'',name:'', gender:'', age:'', address:'', medicalHistory:[]};
   let med = {date:'', diagnose:'', therapy:''};
   med.date = String(getDateNumber());
+  let initialMed = med;
   const dataId = ownProps.params.id;
   let medicalHistory;
   if (dataId && state.datas.length > 0) {
@@ -204,8 +214,8 @@ function mapStateToProps(state, ownProps) {
     datas: state.datas,
     medicalHistory: medicalHistory,
     med: med,
-    id: dataId
-    //datas: dataFormattedForDropdown
+    id: dataId,
+    initialMed: initialMed
   };
 }
 

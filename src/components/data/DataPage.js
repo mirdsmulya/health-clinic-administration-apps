@@ -18,14 +18,18 @@ class DataPage extends React.Component {
 			datas: this.props.datas,
 			logicButton: true
 		};
+		this.props.actions.loadDatas()
 		debugger;
 		this.onEntry = this.onEntry.bind(this);
+		this.searchHandler = this.searchHandler.bind(this);
+		//this.tableHandler = this.tableHandler.bind(this);
 
 	}
 
 	componentWillMount() {
-		this.props.actions.loadDatas();
-
+		this.props.actions.loadDatas()
+		//.then(this.setState({datas: this.props.datas}));
+		//this.setState({datas: this.props.datas});
 		let dataId = this.props.id;
 		let datas = this.props.datas;
 		debugger;
@@ -63,7 +67,27 @@ class DataPage extends React.Component {
 
 
 	}
+
+	searchHandler(event) {
+		let dataS = this.state.datas;
+		let searchState = event.target.value.toLowerCase(),
+		displayedDatas = this.props.datas.filter((data) => {
+			let searchValue = data.name.toLowerCase();
+			return searchValue.indexOf(searchState) !== -1;
+		//	debugger;
+		})
+		this.setState({datas: displayedDatas});
+		debugger;
+	}
+/*
+	tableHandler() {
+		if (this.searchHandler() == '')
+			return <DataList datas={this.props.datas} onEntry={this.onEntry} logicButton={this.state.logicButton} />;
+			return <DataList datas={this.state.datas} onEntry={this.onEntry} logicButton={this.state.logicButton} />;
+}
+*/
 	render() {
+
 		let datast = this.props.datas;
 		let dt = this.state.datas;
 		let logicButtp = this.state.logicButton;
@@ -73,8 +97,8 @@ class DataPage extends React.Component {
 			<div>
 			<h1>Data Pasien</h1>
 			<Link to="datas" className="btn btn-primary btn-lg">Tambah</Link>
-			<DataSearch />
-			<DataList datas={this.props.datas} onEntry={this.onEntry} logicButton={this.state.logicButton} />
+			<DataSearch onChange={this.searchHandler} />
+			<DataList datas={this.state.datas} onEntry={this.onEntry} logicButton={this.state.logicButton} />
 			</div>
 
 		);
@@ -82,9 +106,6 @@ class DataPage extends React.Component {
 }
 
 DataPage.propTypes = {
-	//dispatch: PropTypes.func.isRequired,
-	//datas: PropTypes.array.isRequired,
-	//createData: PropTypes.func.isRequired,
 	actions: PropTypes.object.isRequired,
 	datas: PropTypes.array.isRequired,
 	onentry: PropTypes.object.isRequired,

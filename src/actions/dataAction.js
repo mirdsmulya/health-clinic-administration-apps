@@ -1,4 +1,5 @@
 import DataApi from '../api/mockDataPropApi';
+import AntrianApi from '../api/mockAntrianApi';
 import * as types from './actionTypes';
 
 export function loadDataSuccess(datas) {
@@ -40,12 +41,13 @@ export function saveData(data) {
     return DataApi.saveData(data).then(savedData => {
       data.id ? dispatch(updateDataSuccess(savedData)) :
       dispatch(createDataSuccess(savedData));
-      dispatch(updateAntrianData(data));
-      debugger;
+    }),
+      AntrianApi.antrianUpdate(data).then(antrianUpdated =>{
+          dispatch(updateAntrianData(antrianUpdated))
     }).catch(error => {
       throw(error);
-    });
-  };
+    })
+  }
 
 }
 

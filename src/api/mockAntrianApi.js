@@ -28,12 +28,31 @@ class AntrianApi {
       });
   }
 
+  static antrianUpdate(data) {
+    data = Object.assign({}, data);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let dataUpdate = antrian.filter(datap => datap.id == data.id);
+        if (dataUpdate.length == 0) {
+          data = null;
+        } else {
+          dataUpdate = dataUpdate.number;
+          data.number = dataUpdate;
+        }
+
+        debugger;
+        resolve(data);
+      }, delay);
+    });
+
+  }
+
   static saveAntrian(data) {
     data = Object.assign({}, data);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         let number = antrian.length;
-        number = number + 2
+        number = number + 1;
         data.number = number;
         antrian.push(data);
         resolve();

@@ -14,22 +14,18 @@ class DataPage extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			//datas: Object.assign({}, this.props.datas)
+			//datas: Object.assign({}, this.props.datas),
 			datas: this.props.datas,
 			logicButton: true
 		};
-		this.props.actions.loadDatas()
 		debugger;
 		this.onEntry = this.onEntry.bind(this);
 		this.searchHandler = this.searchHandler.bind(this);
-		//this.tableHandler = this.tableHandler.bind(this);
+		const datasConstant = this.props.datas;
 
 	}
 
 	componentWillMount() {
-		this.props.actions.loadDatas()
-		//.then(this.setState({datas: this.props.datas}));
-		//this.setState({datas: this.props.datas});
 		let dataId = this.props.id;
 		let datas = this.props.datas;
 		debugger;
@@ -44,9 +40,11 @@ class DataPage extends React.Component {
 		}
 	}
 
-
-	dataRow(data, index) {
-		return <div key={index}>{data.name}</div>;
+	componentWillReceiveProps(nextProps) {
+		if (this.props.datas !== nextProps.datas) {
+			this.setState({datas: Object.assign({}, nextProps.datas)});
+		}
+		debugger;
 	}
 
 	logicButton() {
@@ -62,35 +60,27 @@ class DataPage extends React.Component {
 		else {
 			this.setState({logicButton: true});
 		}
-
 		debugger;
-
-
 	}
 
 	searchHandler(event) {
-		let dataS = this.state.datas;
+		const dataS = this.props.datas;
 		let searchState = event.target.value.toLowerCase(),
-		displayedDatas = this.props.datas.filter((data) => {
+		displayedDatas = dataS.filter((data) => {
 			let searchValue = data.name.toLowerCase();
 			return searchValue.indexOf(searchState) !== -1;
 		//	debugger;
-		})
+	});
 		this.setState({datas: displayedDatas});
+		//this.props.actions.searchHandler(displayedDatas);
 		debugger;
 	}
-/*
-	tableHandler() {
-		if (this.searchHandler() == '')
-			return <DataList datas={this.props.datas} onEntry={this.onEntry} logicButton={this.state.logicButton} />;
-			return <DataList datas={this.state.datas} onEntry={this.onEntry} logicButton={this.state.logicButton} />;
-}
-*/
+
 	render() {
 
-		let datast = this.props.datas;
-		let dt = this.state.datas;
-		let logicButtp = this.state.logicButton;
+		let datast = this.props.datas; // for debugging purpose
+		let dt = this.state.datas; // for debugging purpose
+		let logicButtp = this.state.logicButton; // for debugging purpose
 		//const {datas} = this.props;
 		debugger;
 		return(
@@ -116,11 +106,8 @@ DataPage.propTypes = {
 
 
 function mapStateToProps(state, ownProps) {
-	//let datas = DataApi.getAllDatas();
-
 	const dataId = ownProps.params.id;
 	const datas = state.datas;
-
 
 
 	debugger;
@@ -131,13 +118,9 @@ function mapStateToProps(state, ownProps) {
 		//datas: datas
 	};
 
-
-
 }
 
 function mapDispatchToProps(dispatch) {
-
-
 	let logicButton = true;
 
 	return {

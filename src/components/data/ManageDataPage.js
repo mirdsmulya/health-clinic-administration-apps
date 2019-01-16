@@ -45,6 +45,10 @@ class ManageDataPage extends React.Component {
     //this.setState({data: this.props.data});
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({medicalHistory: Object.assign({}, nextProps.medicalHistory)});
+  }
+
   updateDataState(event) {
     const field = event.target.name;
     let data = Object.assign({}, this.state.data);
@@ -67,16 +71,22 @@ class ManageDataPage extends React.Component {
     let dataId = this.props.params.id;
     let data = this.state.data;
     event.preventDefault();
+    let id = this.validForm();
+    //this.context.router.push('/data');
+    //let id = this.props.data.id;
 
-    this.validForm()
+    /*
     if (dataId) {
       this.context.router.push('/data');
     } else {
-      this.context.router.push('/datas/'+ data.id);
+      this.context.router.push('/datas/'+ id);
     }
     //this.setState({datas: this.props.datas});
     debugger;
+    */
 
+  }
+  redirect() {
 
   }
 
@@ -93,7 +103,7 @@ class ManageDataPage extends React.Component {
   }
 
   deleteHistory(event) {
-    event.preventDefaulta();
+    event.preventDefault();
     let id = this.props.params.id;
 
   }
@@ -110,20 +120,21 @@ class ManageDataPage extends React.Component {
     } else {
       Toastr.warning('Data Belum Lengkap');
     }
+    return data.id;
 
-    debugger;
+  //  debugger;
 
   }
   validHistory() {
     let med = Object.assign({}, this.state.med);
-    let data = Object.assign({}, this.props.data);
+    let data = Object.assign({}, this.state.data);
     if (med.date.length > 0 &&
         med.diagnose.length > 0 &&
         med.therapy.length > 0) {
           !confirm('Yakin simpan data ini?');
           data = data.medicalHistory.splice(0,0, med);
           this.props.actions.saveData(data)
-          .then(this.setState({medicalHistory: this.props.medicalHistory}));
+          //.then(this.setState({medicalHistory: this.props.medicalHistory}));
           this.setState({med: this.props.initialMed});
           Toastr.success('Data Berhasil Tersimpan');
           debugger;
@@ -201,6 +212,7 @@ function mapStateToProps(state, ownProps) {
 
   if (state.datas.length > 0 && data.name == '') {
     medicalHistory = [];
+    //medicalHistory =  data.medicalHistory;
     debugger;
   } else {
     medicalHistory =  data.medicalHistory;

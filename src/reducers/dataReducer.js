@@ -22,6 +22,13 @@ export default function dataReducer(state = initialState.datas, action) {
         ...state.filter(data => data.id !== action.data.id),
         Object.assign({}, action.data)
       ];
+    case types.DISPLAYED_DATAS_HANDLER:
+      return action.datas;
+      /*
+      return [
+        ...state.filter(data => data.id == action.data.id),
+        null
+      ]; */
 
     default:
       return state;

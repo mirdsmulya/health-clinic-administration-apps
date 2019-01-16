@@ -139,7 +139,7 @@ class DataApi {
         }
 
 
-        resolve(datas);
+        resolve(data);
         debugger;
       }, delay);
     });
@@ -163,6 +163,27 @@ class DataApi {
       }, delay);
     });
   }
+
+  static displayedDatas(dataDisp) {
+    dataDisp = Object.assign([], dataDisp);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        //datas = [];
+        //datas.push(dataDisp);
+
+        resolve(dataDisp);
+      }, delay);
+    });
+  }
+
+
+
+
+
+
+
+
+
 
   static deleteData(dataId) {
     return new Promise((resolve, reject) => {

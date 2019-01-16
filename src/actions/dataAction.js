@@ -13,6 +13,12 @@ export function createDataSuccess(data) {
 export function addMedicalHistorySuccess(data) {
   return { type: types.ADD_MEDICAL_HIST_SUCCESS, data};
 }
+export function displaySearch(datas) {
+  return { type: types.DISPLAYED_DATAS_HANDLER, datas};
+}
+export function updateAntrianData(data) {
+  return { type: types.UPDATE_DATA_ANTRIAN, data};
+}
 
 
 
@@ -34,6 +40,7 @@ export function saveData(data) {
     return DataApi.saveData(data).then(savedData => {
       data.id ? dispatch(updateDataSuccess(savedData)) :
       dispatch(createDataSuccess(savedData));
+      dispatch(updateAntrianData(data));
       debugger;
     }).catch(error => {
       throw(error);
@@ -52,4 +59,15 @@ export function addHistory(data) {
     });
   };
 
+}
+
+export function searchHandler(datas) {
+  return function(dispatch) {
+    return DataApi.displayedDatas(datas).then(displayed => {
+      dispatch(displaySearch(displayed));
+
+    }).catch(error => {
+      throw(error);
+    })
+  }
 }

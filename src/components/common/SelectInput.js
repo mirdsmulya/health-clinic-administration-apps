@@ -11,7 +11,7 @@ const SelectInput = ({name, value, defaultOption, options, label, onChange, erro
                   value={value}
                   onChange={onChange}>
           <option value={value}>{value}</option>
-          <option value=''>--</option>
+          <option value="">--</option>
           <option value="Pria">Pria</option>
           <option value="Wanita">Wanita</option>
 

@@ -133,13 +133,13 @@ class ManageDataPage extends React.Component {
         med.therapy.length > 0) {
           !confirm('Yakin simpan data ini?');
           data = data.medicalHistory.splice(0,0, med);
-          this.props.actions.saveData(data)
+          this.props.actions.saveData(data);
           //.then(this.setState({medicalHistory: this.props.medicalHistory}));
           this.setState({med: this.props.initialMed});
           Toastr.success('Data Berhasil Tersimpan');
           debugger;
         } else {
-          Toastr.warning('Data Riwayat Belum Terisi Dengan Lengkap')
+          Toastr.warning('Data Riwayat Belum Terisi Dengan Lengkap');
         }
 
   }

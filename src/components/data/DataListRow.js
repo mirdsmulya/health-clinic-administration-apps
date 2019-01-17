@@ -2,15 +2,14 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import ButtonEnhance from '../common/ButtonEnhance';
 
-const DataListRow = ({data, onEntry, logicButton}) => {
+const DataListRow = ({data, onEntry, logicButton, className}) => {
   return(
     <tr>
       <td><Link to={'/datas/' + data.id}>{data.name}</Link></td>
       <td>{data.gender}</td>
       <td>{data.age}</td>
       <td>{data.address}</td>
-      <td><ButtonEnhance logicButton={logicButton} onClick={onEntry}/></td>
-
+      <td><Link to={'/datas-preload/'+ data.id} className="btn btn-info">Masukan Antrian</Link></td>
     </tr>
   );
 };
@@ -19,7 +18,16 @@ const DataListRow = ({data, onEntry, logicButton}) => {
 DataListRow.propTypes = {
   data: PropTypes.object.isRequired,
   onEntry: PropTypes.function,
-  logicButton: PropTypes.function
+  logicButton: PropTypes.function,
+  className:  PropTypes.function
 };
 
 export default DataListRow;
+
+
+/*
+
+<td><ButtonEnhance logicButton={logicButton} onClick={onEntry}/></td>
+
+
+*/

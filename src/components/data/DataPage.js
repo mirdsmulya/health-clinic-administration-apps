@@ -16,11 +16,13 @@ class DataPage extends React.Component {
 		this.state = {
 			//datas: Object.assign({}, this.props.datas),
 			datas: this.props.datas,
-			logicButton: true
+			logicButton: true,
+			className: true
 		};
 		debugger;
 		this.onEntry = this.onEntry.bind(this);
 		this.searchHandler = this.searchHandler.bind(this);
+		this.className = this.className.bind(this);
 		const datasConstant = this.props.datas;
 
 	}
@@ -56,11 +58,26 @@ class DataPage extends React.Component {
 		event.preventDefault();
 		if (this.state.logicButton == true) {
 			this.setState({logicButton: false});
+			return "Dalam Antrian";
 		}
 		else {
 			this.setState({logicButton: true});
+			return "Masukan Antrian";
 		}
-		debugger;
+
+	}
+
+
+	className(event) {
+		event.preventDefault();
+		if (this.state.className == true) {
+			this.setState({className: false});
+			return "btn btn-danger";
+		}
+		else {
+			this.setState({className: true});
+			return "btn btn-info";
+		}
 	}
 
 	searchHandler(event) {
@@ -88,7 +105,11 @@ class DataPage extends React.Component {
 			<h1>Data Pasien</h1>
 			<Link to="datas" className="btn btn-primary btn-lg">Tambah</Link>
 			<DataSearch onChange={this.searchHandler} />
-			<DataList datas={this.state.datas} onEntry={this.onEntry} logicButton={this.state.logicButton} />
+			<DataList datas={this.state.datas}
+								onEntry={this.onEntry}
+								logicButton={this.state.logicButton}
+								className={this.className}
+				/>
 			</div>
 
 		);
@@ -103,7 +124,9 @@ DataPage.propTypes = {
 	logicButton: PropTypes.func
  };
 
-
+ DataPage.contextTypes = {
+   router: PropTypes.object
+ };
 
 function mapStateToProps(state, ownProps) {
 	const dataId = ownProps.params.id;

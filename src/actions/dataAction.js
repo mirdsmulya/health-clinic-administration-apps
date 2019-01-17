@@ -43,10 +43,10 @@ export function saveData(data) {
       dispatch(createDataSuccess(savedData));
     }),
       AntrianApi.antrianUpdate(data).then(antrianUpdated =>{
-          dispatch(updateAntrianData(antrianUpdated))
+          dispatch(updateAntrianData(antrianUpdated));
     }).catch(error => {
       throw(error);
-    })
+    });
   }
 
 }
@@ -70,6 +70,6 @@ export function searchHandler(datas) {
 
     }).catch(error => {
       throw(error);
-    })
-  }
+    });
+  };
 }

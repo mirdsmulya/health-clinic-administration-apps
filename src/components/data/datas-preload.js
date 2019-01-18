@@ -9,6 +9,7 @@ import DataSearch from './DataSearch';
 //import DataApi from '../../api/mockDataPropApi';
 //import {browserHistory} from 'react-router';
 import DataApi from '../../api/mockDataPropApi';
+import toastr from 'toastr';
 
 
 class DatasPreload extends React.Component {
@@ -32,9 +33,16 @@ class DatasPreload extends React.Component {
   }
 
   componentWillMount() {
-    this.props.onentry.addAntrian(this.props.data)
-    .then((redirect) => {this.context.router.push('/antrian');
-    return redirect; });
+    if (this.props.result.length !== 0) {
+      this.context.router.push('/data');
+      toastr.warning('Data Ini Sudah Masuk List Antrian!');
+    } else {
+      this.props.onentry.addAntrian(this.props.data)
+      .then((redirect) => {this.context.router.push('/antrian');
+      return redirect; });
+
+    }
+
     debugger;
 
   }
@@ -71,7 +79,8 @@ DatasPreload.propTypes = {
 	onentry: PropTypes.object.isRequired,
 	dataId: PropTypes.string,
 	logicButton: PropTypes.func,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  result: PropTypes.object
  };
 
  DatasPreload.contextTypes = {
@@ -86,19 +95,46 @@ DatasPreload.propTypes = {
 
  }
 
+ function dataCheck(antrian, id) {
+   debugger;
+    let result = antrian.filter(data => data.id == id);
+    if (result) return false;
+    return true;
+
+ }
+
 function mapStateToProps(state, ownProps) {
-	const dataId = ownProps.params.id;
+	const id = ownProps.params.id;
 	const datas = state.datas;
+  const antrian = state.antrian;
   //let data = datas.filter(data => data.id == dataId);
-  let data = getDataById(state.datas, dataId);
+  let data = getDataById(state.datas, id);
+  let status = antrian.includes(data => data.id == id);
+  let result = antrian.filter(data => data.id == id);
+
+
+  /*
+
+  let data = dataCheck(state.antrian, dataId)
+  if (data == null) {
+    data = getDataById(state.datas, dataId);
+    debugger;
+  } else {
+    data = null;
+    debugger;
+  }
+  */
 
 
 	debugger;
 	return {
 		datas: state.datas,
 		antrian: state.antrian,
-		id: dataId,
-    data: data
+		id: id,
+    data: data,
+    status: status,
+    result: result
+
 		//datas: datas
 	};
 

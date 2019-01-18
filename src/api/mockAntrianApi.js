@@ -54,8 +54,10 @@ class AntrianApi {
         let number = antrian.length;
         number = number + 1;
         data.number = number;
-        //data.push(number);
         antrian.push(data);
+
+        //data.push(number);
+        debugger;
         resolve(data);
       }, delay);
     });

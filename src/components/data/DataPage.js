@@ -30,18 +30,10 @@ class DataPage extends React.Component {
 	componentWillMount() {
 		let dataId = this.props.id;
 		let datas = this.props.datas;
+		this.setState({datas: this.props.datas})
 		debugger;
-		if (dataId) {
-			let data = datas.filter(data => data.id == dataId);
-			if (data) {
-				debugger;
-				this.props.onentry.addAntrian(data)
-				.then((redirect) => {this.context.router.push('/antrian');
-				return redirect; });
-			}
-		}
-	}
 
+	}
 	componentWillReceiveProps(nextProps) {
 		if (this.props.datas !== nextProps.datas) {
 			this.setState({datas: Object.assign({}, nextProps.datas)});

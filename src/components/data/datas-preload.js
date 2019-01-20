@@ -35,10 +35,11 @@ class DatasPreload extends React.Component {
   componentWillMount() {
     if (this.props.result.length !== 0) {
       this.context.router.push('/data');
-      toastr.warning('Data Ini Sudah Masuk List Antrian!');
+      toastr.warning('Data Pasien Sudah Terdaftar');
     } else {
       this.props.onentry.addAntrian(this.props.data)
       .then((redirect) => {this.context.router.push('/antrian');
+      toastr.success('Data Berhasil Terdaftar');
       return redirect; });
 
     }

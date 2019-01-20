@@ -17,8 +17,8 @@ export function addMedicalHistorySuccess(data) {
 export function displaySearch(datas) {
   return { type: types.DISPLAYED_DATAS_HANDLER, datas};
 }
-export function updateAntrianData(data) {
-  return { type: types.UPDATE_DATA_ANTRIAN, data};
+export function updateAntrianData(antrian) {
+  return { type: types.UPDATE_DATA_ANTRIAN, antrian};
 }
 
 
@@ -43,11 +43,14 @@ export function saveData(data) {
       dispatch(createDataSuccess(savedData));
     }),
       AntrianApi.antrianUpdate(data).then(antrianUpdated =>{
-          dispatch(updateAntrianData(antrianUpdated));
+        dispatch(updateAntrianData(antrianUpdated));
+
+
+      //data.id ? dispatch(updateAntrianData(antrianUpdated)) : null;
     }).catch(error => {
       throw(error);
     });
-  }
+  };
 
 }
 

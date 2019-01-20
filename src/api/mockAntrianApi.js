@@ -32,16 +32,27 @@ class AntrianApi {
     data = Object.assign({}, data);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        /*
+        const existingDataIndex = antrian.findIndex(a => a.id == data.id);
+        let dataUpdate = antrian.filter(datap => datap.id == data.id);
+        dataUpdate = dataUpdate[0];
+        data.number = dataUpdate.number;
+        antrian.splice(existingDataIndex, 1, data);
+        //antrian.sort(number);
+        */
         let dataUpdate = antrian.filter(datap => datap.id == data.id);
         if (dataUpdate.length == 0) {
           data = null;
         } else {
-          dataUpdate = dataUpdate.number;
-          data.number = dataUpdate;
+          const existingDataIndex = antrian.findIndex(a => a.id == data.id);
+          //let dataUpdate = antrian.filter(datap => datap.id == data.id);
+          dataUpdate = dataUpdate[0];
+          data.number = dataUpdate.number;
+          antrian.splice(existingDataIndex, 1, data);
         }
 
         debugger;
-        resolve(data);
+        resolve(Object.assign([], antrian));
       }, delay);
     });
 

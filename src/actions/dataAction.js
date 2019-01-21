@@ -20,7 +20,9 @@ export function displaySearch(datas) {
 export function updateAntrianData(antrian) {
   return { type: types.UPDATE_DATA_ANTRIAN, antrian};
 }
-
+export function deleteDataSuccess(datas) {
+  return { type: types.DELETE_DATA_SUCCESS, datas};
+}
 
 
 export function loadDatas() {
@@ -52,6 +54,17 @@ export function saveData(data) {
     });
   };
 
+}
+
+export function deleteData(dataId) {
+  return function(dispatch) {
+    debugger;
+    return DataApi.deleteData(dataId).then(deletedData => {
+      dispatch(deleteDataSuccess(deletedData));
+    }).catch(error => {
+      throw(error);
+    });
+  };
 }
 
 export function addHistory(data) {

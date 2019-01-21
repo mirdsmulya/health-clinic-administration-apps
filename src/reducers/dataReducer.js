@@ -12,7 +12,14 @@ export default function dataReducer(state = initialState.datas, action) {
         ...state,
         Object.assign({}, action.data)
       ];
-    case types.UPDATE_DATA_SUCCESS:
+    case types.DELETE_DATA_SUCCESS:
+      return action.datas;
+    /*
+    return [
+        ...state.filter(data => data.id !== action.dataId),
+        null
+      ];
+      */
       return [
         ...state.filter(data => data.id !== action.data.id),
         Object.assign({}, action.data)

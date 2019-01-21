@@ -14,6 +14,7 @@ let datas = [
     lastArrived: "12/09/2018",
     age: "50",
     number:"",
+    status: true,
     medicalHistory: [
       {date:"12/11/2018", diagnose: "Typhus", therapy: "Antibiotik"},
       {date:"04/06/2018", diagnose: "Flu & batuk", therapy: "Therabex"}
@@ -26,6 +27,7 @@ let datas = [
     gender: "Pria",
     age: "30",
     number:"",
+    status: true,
     address: "Jl. Ibrahim Adjie No. 120, Karang Mekar",
     lastArrived: "16/11/2018",
     medicalHistory:
@@ -41,6 +43,7 @@ let datas = [
     gender: "Pria",
     age: "25",
     number:"",
+    status: true,
     address: "Jl. Jend. Sudirman Gg. Jamiatun, Bandung",
     lastArrived: "09/08/2018",
     medicalHistory:
@@ -56,6 +59,7 @@ let datas = [
     gender: "Pria",
     age: "23",
     number:"",
+    status: true,
     address: "Jl. Pasar Atas No. 70, Cimahi Tengah",
     lastArrived: "11/12/2018",
     medicalHistory:
@@ -71,6 +75,7 @@ let datas = [
     gender: "Pria",
     age: "43",
     number:"",
+    status: true,
     address: "Jl. Adhyaksa Barat No. 456, Cigugur Tengah, Kota Cimahi",
     lastArrived: "14/01/2018",
     medicalHistory:
@@ -137,6 +142,7 @@ class DataApi {
             //Cloning so copy returned is passed by value rather than by reference.
             data.id = generateId(data);
             data.number = '';
+            data.status = true;
             //data.push({medicalHistory:[]})
             datas.push(data);
             debugger;
@@ -183,21 +189,17 @@ class DataApi {
 
 
 
-
-
-
-
-
-
-
   static deleteData(dataId) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const indexOfDataToDelete = datas.findIndex(data => {
-          data.id == dataId;
-        });
-        datas.splice(indexOfDataToDelete, 1);
-        resolve();
+
+        const indexOfDataToDelete = datas.findIndex(d =>
+        d.id == dataId);
+        if (indexOfDataToDelete) {
+          datas.splice(indexOfDataToDelete, 1);
+        }
+        debugger;
+        resolve(datas);
       }, delay);
     });
   }

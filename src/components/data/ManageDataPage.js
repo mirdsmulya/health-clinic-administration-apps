@@ -31,6 +31,7 @@ class ManageDataPage extends React.Component {
     this.deleteHistory = this.deleteHistory.bind(this);
     this.validForm = this.validForm.bind(this);
     this.validHistory = this.validHistory.bind(this);
+    this.onDelete = this.onDelete.bind(this);
 
   }
 
@@ -70,8 +71,15 @@ class ManageDataPage extends React.Component {
   onSave(event) {
     let dataId = this.props.params.id;
     let data = this.state.data;
+    let id;
     event.preventDefault();
-    let id = this.validForm();
+    if (confirm('Yakin simpan data ini?') == true) {
+      this.validForm();
+    } else {
+      event.preventDefault();
+      null;
+    }
+
     //this.context.router.push('/data');
     //let id = this.props.data.id;
 
@@ -86,7 +94,57 @@ class ManageDataPage extends React.Component {
     */
 
   }
-  redirect() {
+  onDelete(event) {
+    let id = this.props.id;
+
+    if (id) {
+      if (confirm('Hapus data ini?')  == true ) {
+        event.preventDefault();
+        this.props.actions.deleteData(this.props.id)
+        .then(Toastr.success('Data Berhasil Dihapus'));
+        this.context.router.push('/datas');
+        this.setState({data: this.props.initialData})
+        //.then(this.context.router.push('/data'));
+
+      } else {
+        event.preventDefault();
+
+        }
+
+      }
+      else {
+        event.preventDefault();
+        Toastr.warning('Belum ada data yang terismpan');
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    if (confirm('Hapus data ini?')  == true && id == true) {
+      event.preventDefault();
+      this.props.actions.deleteData(this.props.id)
+      .then(Toastr.success('Data Berhasil Dihapus'));
+      this.context.router.push('/datas');
+      this.setState({data: this.props.initialData})
+      //.then(this.context.router.push('/data'));
+
+    } else {
+      event.preventDefault();
+      if (id == false) {
+        Toastr.warning('Belum ada data yang terismpan');
+      }
+
+    }
+    */
 
   }
 
@@ -113,7 +171,7 @@ class ManageDataPage extends React.Component {
         data.age.length > 0 &&
         data.address.length > 0 &&
         data.gender.length > 0) {
-      !confirm('Yakin simpan data ini?');
+      !
       this.props.actions.saveData(this.state.data);
       Toastr.success('Data Tersimpan');
       debugger;
@@ -154,6 +212,7 @@ class ManageDataPage extends React.Component {
         onChange={this.updateDataState}
         errors={this.state.errors}
         onSave={this.onSave}
+        onDelete={this.onDelete}
         />
       <HistoryList medicalHistory={this.props.medicalHistory}
                 med={this.state.med}
@@ -200,6 +259,7 @@ function mapStateToProps(state, ownProps) {
 
   let data = {id:'',name:'', gender:'', age:'', address:'', medicalHistory:[]};
   let med = {date:'', diagnose:'', therapy:''};
+  let initialData = data;
   med.date = String(getDateNumber());
   let initialMed = med;
   const dataId = ownProps.params.id;
@@ -227,7 +287,8 @@ function mapStateToProps(state, ownProps) {
     medicalHistory: medicalHistory,
     med: med,
     id: dataId,
-    initialMed: initialMed
+    initialMed: initialMed,
+    initialData
   };
 }
 

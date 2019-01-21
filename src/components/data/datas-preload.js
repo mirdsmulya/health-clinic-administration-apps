@@ -27,9 +27,6 @@ class DatasPreload extends React.Component {
 
     const datasConstant = this.props.datas;
 
-
-
-
   }
 
   componentWillMount() {
@@ -90,6 +87,7 @@ DatasPreload.propTypes = {
 
  function getDataById(datas, id) {
    const data = datas.filter(data => data.id == id);
+   data.status = !data.status;
    if (data) return data[0];
    debugger;
    return null;
@@ -106,13 +104,16 @@ DatasPreload.propTypes = {
 
 function mapStateToProps(state, ownProps) {
 	const id = ownProps.params.id;
-	const datas = state.datas;
+  const datas = Object.assign([], state.datas);
+  //const datas = state.datas;
   const antrian = state.antrian;
   //let data = datas.filter(data => data.id == dataId);
-  let data = getDataById(state.datas, id);
-  let status = antrian.includes(data => data.id == id);
-  let result = antrian.filter(data => data.id == id);
+  let data = getDataById(datas, id);
 
+  //let status = antrian.includes(data => data.id == id);
+  let result = antrian.filter(data => data.id == id);
+  //data.status = !data.status;
+  //data = Object.assign({}, data);
 
   /*
 
@@ -133,7 +134,6 @@ function mapStateToProps(state, ownProps) {
 		antrian: state.antrian,
 		id: id,
     data: data,
-    status: status,
     result: result
 
 		//datas: datas

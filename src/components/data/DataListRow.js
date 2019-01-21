@@ -9,7 +9,9 @@ const DataListRow = ({data, onEntry, logicButton, className}) => {
       <td>{data.gender}</td>
       <td>{data.age}</td>
       <td>{data.address}</td>
-      <td><Link to={'/datas-preload/'+ data.id} className="btn btn-info">Masukan Antrian</Link></td>
+      <td><Link to={'/datas-preload/'+ data.id}
+                className={data.status ? 'btn btn-info' : 'btn btn-danger'}
+                >{data.status ? 'Masukan Antrian' : 'Dalam Antrian'}</Link></td>
     </tr>
   );
 };

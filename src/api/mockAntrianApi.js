@@ -62,27 +62,31 @@ class AntrianApi {
     data = Object.assign({}, data);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        let number = antrian.length;
+        //let number = antrian.length;
+        let number = antrian;
         number = number + 1;
         data.number = number;
         antrian.push(data);
 
         //data.push(number);
         debugger;
-        resolve(data);
+        resolve(Object.assign({},data));
       }, delay);
     });
 
   }
 
-  static deleteAntrian(data) {
-    data = Object.assign({}, data);
+  static deleteAntrian(id) {
+    //id = Object.assign({}, id);
+    debugger;
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        let indexOfdata = antrian.findIndex(data => {
-          data.id == antrian.id;
-        });
-        resolve();
+
+        let indexOfdata = antrian.findIndex(a =>  a.id == id);
+        antrian.splice(indexOfdata, 1);
+
+
+      resolve(Object.assign([], antrian));
       }, delay);
     });
 

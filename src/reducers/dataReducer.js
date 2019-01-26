@@ -14,16 +14,7 @@ export default function dataReducer(state = initialState.datas, action) {
       ];
     case types.DELETE_DATA_SUCCESS:
       return action.datas;
-    /*
-    return [
-        ...state.filter(data => data.id !== action.dataId),
-        null
-      ];
-      */
-      return [
-        ...state.filter(data => data.id !== action.data.id),
-        Object.assign({}, action.data)
-      ];
+
     case types.ADD_MEDICAL_HIST_SUCCESS:
       return [
         ...state.filter(data => data.id !== action.data.id),
@@ -31,11 +22,7 @@ export default function dataReducer(state = initialState.datas, action) {
       ];
     case types.DISPLAYED_DATAS_HANDLER:
       return action.datas;
-      /*
-      return [
-        ...state.filter(data => data.id == action.data.id),
-        null
-      ]; */
+
 
     default:
       return state;

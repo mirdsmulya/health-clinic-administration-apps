@@ -20,7 +20,8 @@ class ManageDataPage extends React.Component {
       error: {},
       med: Object.assign({}, this.props.med),
       medicalHistory: Object.assign({}, this.props.medicalHistory),
-      formPass: false
+      formPass: false,
+      delButton: false
     };
     debugger;
 
@@ -38,10 +39,14 @@ class ManageDataPage extends React.Component {
 
 
   componentWillMount() {
+    if (this.props.id == undefined) {
+      this.setState({delButton: true})
+    }
     //this.props.actions.loadDatas();
     if (this.state.data) {
       this.setState({medicalHistory: {}});
     }
+    debugger;
 
     //this.setState({data: this.props.data});
   }
@@ -72,13 +77,31 @@ class ManageDataPage extends React.Component {
     let dataId = this.props.params.id;
     let data = this.state.data;
     let id;
-    event.preventDefault();
+    let dataStat = this.validForm();
+    if (dataStat) {
+      event.preventDefault();
+      if (confirm('Yakin simpan data ini?') == true) {
+      this.props.actions.saveData(this.state.data);
+      Toastr.success('Data Tersimpan');
+      } else {null;}
+    } else {
+      event.preventDefault();
+      Toastr.warning('Data Belum Lengkap');
+
+    }
+
+
+
+
+  /*
     if (confirm('Yakin simpan data ini?') == true) {
       this.validForm();
+      event.preventDefault();
     } else {
       event.preventDefault();
       null;
     }
+    */
 
     //this.context.router.push('/data');
     //let id = this.props.data.id;
@@ -96,7 +119,26 @@ class ManageDataPage extends React.Component {
   }
   onDelete(event) {
     let id = this.props.id;
+    if (confirm('Hapus data ini?')  == true ) {
+      event.preventDefault();
+      this.props.actions.deleteData(this.props.id)
+      .then(Toastr.success('Data Berhasil Dihapus'));
+      this.context.router.push('/datas');
+      this.setState({data: this.props.initialData})
+      //.then(this.context.router.push('/data'));
 
+    } else {
+      event.preventDefault();
+
+      }
+
+
+
+
+
+
+
+/*
     if (id) {
       if (confirm('Hapus data ini?')  == true ) {
         event.preventDefault();
@@ -117,16 +159,7 @@ class ManageDataPage extends React.Component {
         Toastr.warning('Belum ada data yang terismpan');
       }
 
-
-
-
-
-
-
-
-
-
-
+*/
 
     /*
     if (confirm('Hapus data ini?')  == true && id == true) {
@@ -165,13 +198,28 @@ class ManageDataPage extends React.Component {
     let id = this.props.params.id;
 
   }
+
+
+  validForm() {
+    let data = Object.assign({}, this.state.data);
+    if (data.name.length > 0 &&
+        data.age.length > 0 &&
+        data.address.length > 0 &&
+        data.gender.length > 0) return true;
+        return false;
+
+  }
+
+
+
+  /*
   validForm() {
     let data = Object.assign({}, this.state.data);
     if (data.name.length > 0 &&
         data.age.length > 0 &&
         data.address.length > 0 &&
         data.gender.length > 0) {
-      !
+
       this.props.actions.saveData(this.state.data);
       Toastr.success('Data Tersimpan');
       debugger;
@@ -183,6 +231,7 @@ class ManageDataPage extends React.Component {
   //  debugger;
 
   }
+  */
   validHistory() {
     let med = Object.assign({}, this.state.med);
     let data = Object.assign({}, this.state.data);
@@ -203,7 +252,8 @@ class ManageDataPage extends React.Component {
   }
 
   render() {
-    //debugger;
+    debugger;
+    let stat= this.state.delButton;
     return(
 
       <div>
@@ -213,6 +263,7 @@ class ManageDataPage extends React.Component {
         errors={this.state.errors}
         onSave={this.onSave}
         onDelete={this.onDelete}
+        buttonStatus={this.state.delButton}
         />
       <HistoryList medicalHistory={this.props.medicalHistory}
                 med={this.state.med}
@@ -260,6 +311,7 @@ function mapStateToProps(state, ownProps) {
   let data = {id:'',name:'', gender:'', age:'', address:'', medicalHistory:[]};
   let med = {date:'', diagnose:'', therapy:''};
   let initialData = data;
+
   med.date = String(getDateNumber());
   let initialMed = med;
   const dataId = ownProps.params.id;
@@ -288,7 +340,8 @@ function mapStateToProps(state, ownProps) {
     med: med,
     id: dataId,
     initialMed: initialMed,
-    initialData
+    initialData: initialData
+
   };
 }
 

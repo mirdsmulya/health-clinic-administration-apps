@@ -4,7 +4,7 @@ import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
 
-const DataForm = ({data, onSave, onChange, loading, errors, allDatas, options, onDelete}) => {
+const DataForm = ({data, onSave, onChange, loading, errors, allDatas, options, onDelete, buttonStatus}) => {
   return (
     <form>
       <div>
@@ -49,7 +49,7 @@ const DataForm = ({data, onSave, onChange, loading, errors, allDatas, options, o
         onClick={onSave}/>
       <input
         type="submit"
-        disabled={loading}
+        disabled={buttonStatus}
         value="Delete"
         className="btn btn-danger pull right"
         onClick={onDelete} />
@@ -70,7 +70,8 @@ DataForm.propTypes = {
   onSave: React.PropTypes.function,
   allDatas: React.PropTypes.array,
   options: React.PropTypes.object.isRequired,
-  onDelete: React.PropTypes.function
+  onDelete: React.PropTypes.function,
+  buttonStatus: React.PropTypes.func
 };
 export default DataForm;
 

@@ -18,12 +18,10 @@ export default function antrianReducer(state= initialState.antrian, action) {
       ];
     case type.UPDATE_DATA_ANTRIAN:
       return action.antrian;
-      /*
-      [
-        ...state.filter(data => data.id !== action.data.id),
-        //.then(antrian => {antrian.filter(data => data.id !== action.data.id)}),
-        Object.assign({}, action.data)
-      ]; */
+    case type.DELETE_ANTRIAN_SUCCESS:
+      return action.antrian;
+
+
     default:
       return state;
 

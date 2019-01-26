@@ -7,7 +7,7 @@ const AntrianListRow = ({data}) => {
       <td>{data.number}</td>
       <td><Link to={'/datas/' + data.id}>{data.name}</Link></td>
       <td>{data.address}</td>
-      <td><button className="btn">Selesaikan</button></td>
+      <td><Link to={'/antrian-preload/'+ data.id} className="btn btn-info" >Selesaikan</Link></td>
 
     </tr>
   );

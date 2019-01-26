@@ -198,6 +198,7 @@ class DataApi {
         if (indexOfDataToDelete) {
           datas.splice(indexOfDataToDelete, 1);
         }
+        datas = Object.assign([], datas);
         debugger;
         resolve(datas);
       }, delay);

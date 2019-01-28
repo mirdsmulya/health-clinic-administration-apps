@@ -13,12 +13,6 @@ class ListAntrian extends React.Component {
 
   }
 
-  componentWillMount() {
-    this.props.actions.loadDatas();
-    debugger;
-    //this.props.onentry.loadAntrian();
-
-  }
   render() {
     return(
       <div>

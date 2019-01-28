@@ -40,7 +40,9 @@ class AntrianPreload extends React.Component {
 }
 
 AntrianPreload.propTypes = {
-  antrian: PropTypes.array.isRequired
+  antrian: PropTypes.array.isRequired,
+  id: PropTypes.object,
+  onentry: PropTypes.func
 
 };
 

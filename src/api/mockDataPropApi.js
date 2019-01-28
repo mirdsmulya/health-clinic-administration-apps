@@ -114,7 +114,7 @@ class DataApi {
       setTimeout(() => {
         resolve(Object.assign([], datas));
         debugger;
-      }, delay);
+      }, 0);
     });
   }
 
@@ -152,7 +152,7 @@ class DataApi {
 
         resolve(data);
         debugger;
-      }, delay);
+      }, 0);
     });
   }
 
@@ -183,7 +183,7 @@ class DataApi {
         //datas.push(dataDisp);
 
         resolve(dataDisp);
-      }, delay);
+      }, 0);
     });
   }
 
@@ -201,7 +201,7 @@ class DataApi {
         datas = Object.assign([], datas);
         debugger;
         resolve(datas);
-      }, delay);
+      }, 0);
     });
   }
 
@@ -209,23 +209,3 @@ class DataApi {
 }
 
 export default DataApi;
-
-
-/*
-static getDataById(dataId) {
-  return new Promise((resolve, reject) =>{
-    setTimeout(() => {
-      //const datas = Object.asssign({}, datas);
-      const indexOfDataToDisplay = datas.findIndex(data => {data.id == dataId;});
-      //const data = datas[indexOfDataToDisplay];
-      //var data = datas.find(datas, {id: dataId });
-      //var data = datas[indexOfDataToDisplay];
-      var data= datas.pop();
-
-      resolve(Object.assign({}, datas.pop()));
-      debugger;
-    }, 0);
-  });
-}
-
-*/

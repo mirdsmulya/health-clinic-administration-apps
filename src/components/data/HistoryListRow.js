@@ -7,7 +7,7 @@ const HistoryListRow = ({data, onClick}) => {
       <td>{data.date}</td>
       <td>{data.diagnose}</td>
       <td>{data.therapy}</td>
-      <td><button className="btn" onClick={onClick}>Hapus</button></td>
+
 
     </tr>
   );
@@ -23,6 +23,9 @@ export default HistoryListRow;
 
 
 /*
+
+<td><button className="btn" onClick={onClick}>Hapus</button></td>
+
 <td>{data.medicalHistory.date}</td>
 <td>{data.medicalHistory.diagnose}</td>
 <td>{data.medicalHistory.therapy}</td>

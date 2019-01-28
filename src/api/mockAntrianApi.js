@@ -4,7 +4,7 @@ import delay from './delay';
 let antrian= [
   {
     id: "sri-rezeki",
-    number: '1',
+    number: 1,
     name: "Sri Rezeki Indriana",
     gender: "Wanita",
     address: "Jl. Kamuncang No 11, Cisarua",
@@ -53,21 +53,26 @@ class AntrianApi {
 
         debugger;
         resolve(Object.assign([], antrian));
-      }, delay);
+      }, 0);
     });
 
   }
 
   static saveAntrian(data) {
     data = Object.assign({}, data);
+    let antrianNumb = Object.assign([], antrian);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        //let number = antrian.length;
-        let number = antrian;
-        number = number + 1;
+        let number;
+        if (antrian.length !== 0) {
+          let antrianMaxNumber = antrianNumb.pop();
+          number = antrianMaxNumber.number + 1;
+
+        } else {
+          number = 1;
+        }
         data.number = number;
         antrian.push(data);
-
         //data.push(number);
         debugger;
         resolve(Object.assign({},data));

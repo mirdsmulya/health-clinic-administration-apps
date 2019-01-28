@@ -40,6 +40,6 @@ export function endAntrian(dataId) {
   return function(dispatch) {
     return AntrianApi.deleteAntrian(dataId).then(antrian => {
       dispatch(deleteAntrianSuccess(antrian));
-    })
-  }
+    });
+  };
 }

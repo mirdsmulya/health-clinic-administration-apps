@@ -13,6 +13,13 @@ import Toastr from 'toastr';
 
 
 class ManageDataPage extends React.Component {
+
+  static willTransitionFrom(transition, component) {
+    if (component.state.dirty && !confirm('Data ini belum di simpan, anda yakin ingin meninggalkannya?')) {
+      transition.abort();
+    }
+
+  }
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -21,7 +28,8 @@ class ManageDataPage extends React.Component {
       med: Object.assign({}, this.props.med),
       medicalHistory: Object.assign({}, this.props.medicalHistory),
       formPass: false,
-      delButton: false
+      delButton: false,
+      dirty: false
     };
     debugger;
 
@@ -36,26 +44,31 @@ class ManageDataPage extends React.Component {
 
   }
 
+  /*
+  static willTransitionFrom(transition, component) {
+    if (component.state.dirty && !confirm('Data ini belum di simpan, anda yakin ingin meninggalkannya?')) {
+      transition.abort();
+    }
 
+  }
+*/
 
   componentWillMount() {
     if (this.props.id == undefined) {
-      this.setState({delButton: true})
+      this.setState({delButton: true});
     }
-    //this.props.actions.loadDatas();
-    if (this.state.data) {
-      this.setState({medicalHistory: {}});
+
+    if (this.props.errorPage) {
+      this.context.router.push('/notFoundPage');
     }
-    debugger;
-
-    //this.setState({data: this.props.data});
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({medicalHistory: Object.assign({}, nextProps.medicalHistory)});
   }
 
   updateDataState(event) {
+
+    if (!this.state.dirty) {
+      this.setState({dirty: true});
+    }
+    //this.setState({dirty: true});
     const field = event.target.name;
     let data = Object.assign({}, this.state.data);
     data[field] = event.target.value;
@@ -83,6 +96,7 @@ class ManageDataPage extends React.Component {
       if (confirm('Yakin simpan data ini?') == true) {
       this.props.actions.saveData(this.state.data);
       Toastr.success('Data Tersimpan');
+      this.setState({dirty: false});
       } else {null;}
     } else {
       event.preventDefault();
@@ -90,31 +104,6 @@ class ManageDataPage extends React.Component {
 
     }
 
-
-
-
-  /*
-    if (confirm('Yakin simpan data ini?') == true) {
-      this.validForm();
-      event.preventDefault();
-    } else {
-      event.preventDefault();
-      null;
-    }
-    */
-
-    //this.context.router.push('/data');
-    //let id = this.props.data.id;
-
-    /*
-    if (dataId) {
-      this.context.router.push('/data');
-    } else {
-      this.context.router.push('/datas/'+ id);
-    }
-    //this.setState({datas: this.props.datas});
-    debugger;
-    */
 
   }
   onDelete(event) {
@@ -124,7 +113,7 @@ class ManageDataPage extends React.Component {
       this.props.actions.deleteData(this.props.id)
       .then(Toastr.success('Data Berhasil Dihapus'));
       this.context.router.push('/datas');
-      this.setState({data: this.props.initialData})
+      this.setState({data: this.props.initialData});
       //.then(this.context.router.push('/data'));
 
     } else {
@@ -133,51 +122,6 @@ class ManageDataPage extends React.Component {
       }
 
 
-
-
-
-
-
-/*
-    if (id) {
-      if (confirm('Hapus data ini?')  == true ) {
-        event.preventDefault();
-        this.props.actions.deleteData(this.props.id)
-        .then(Toastr.success('Data Berhasil Dihapus'));
-        this.context.router.push('/datas');
-        this.setState({data: this.props.initialData})
-        //.then(this.context.router.push('/data'));
-
-      } else {
-        event.preventDefault();
-
-        }
-
-      }
-      else {
-        event.preventDefault();
-        Toastr.warning('Belum ada data yang terismpan');
-      }
-
-*/
-
-    /*
-    if (confirm('Hapus data ini?')  == true && id == true) {
-      event.preventDefault();
-      this.props.actions.deleteData(this.props.id)
-      .then(Toastr.success('Data Berhasil Dihapus'));
-      this.context.router.push('/datas');
-      this.setState({data: this.props.initialData})
-      //.then(this.context.router.push('/data'));
-
-    } else {
-      event.preventDefault();
-      if (id == false) {
-        Toastr.warning('Belum ada data yang terismpan');
-      }
-
-    }
-    */
 
   }
 
@@ -188,7 +132,7 @@ class ManageDataPage extends React.Component {
       this.validHistory();
     } else{
       this.props.actions.loadDatas()
-      .then(this.validHistory)
+      .then(this.validHistory);
     }
 
   }
@@ -211,27 +155,6 @@ class ManageDataPage extends React.Component {
   }
 
 
-
-  /*
-  validForm() {
-    let data = Object.assign({}, this.state.data);
-    if (data.name.length > 0 &&
-        data.age.length > 0 &&
-        data.address.length > 0 &&
-        data.gender.length > 0) {
-
-      this.props.actions.saveData(this.state.data);
-      Toastr.success('Data Tersimpan');
-      debugger;
-    } else {
-      Toastr.warning('Data Belum Lengkap');
-    }
-    return data.id;
-
-  //  debugger;
-
-  }
-  */
   validHistory() {
     let med = Object.assign({}, this.state.med);
     let data = Object.assign({}, this.state.data);
@@ -284,7 +207,12 @@ ManageDataPage.propTypes = {
   medicalHistory: PropTypes.array.isRequired,
   med: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
-  alertNotification: PropTypes.func
+  alertNotification: PropTypes.func,
+  errorPage: PropTypes.boolean,
+  initialMed: PropTypes.object,
+  params: PropTypes.object,
+  id:PropTypes.object,
+  initialData: PropTypes.object
 };
 
 ManageDataPage.contextTypes = {
@@ -310,28 +238,25 @@ function mapStateToProps(state, ownProps) {
 
   let data = {id:'',name:'', gender:'', age:'', address:'', medicalHistory:[]};
   let med = {date:'', diagnose:'', therapy:''};
-  let initialData = data;
-
+  const initialData = data;
+  let errorPage;
   med.date = String(getDateNumber());
   let initialMed = med;
   const dataId = ownProps.params.id;
-  let medicalHistory;
+  let medicalHistory = [];
   if (dataId && state.datas.length > 0) {
     data = getDataById(state.datas, dataId);
+    if (!data) {
+      errorPage = true;
+    } else {medicalHistory =  data.medicalHistory;}
 
+
+  } else {
+    if (dataId) {
+      errorPage = true;
+    }
   }
   debugger;
-
-  if (state.datas.length > 0 && data.name == '') {
-    medicalHistory = [];
-    //medicalHistory =  data.medicalHistory;
-    debugger;
-  } else {
-    medicalHistory =  data.medicalHistory;
-
-    debugger;
-
-  }
 
   return {
     data: data,
@@ -340,7 +265,8 @@ function mapStateToProps(state, ownProps) {
     med: med,
     id: dataId,
     initialMed: initialMed,
-    initialData: initialData
+    initialData: initialData,
+    errorPage: errorPage
 
   };
 }
@@ -351,9 +277,3 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDataPage);
-
-
-/*
-
-
-*/

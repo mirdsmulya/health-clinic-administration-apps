@@ -3,7 +3,7 @@ import HistoryListRow from './HistoryListRow';
 import HistoryListInput from './HistoryListInput';
 
 
-const HistoryList = ({med, medicalHistory, data, onChange, onClick, addHistory, hapusRiwayat}) => {
+const HistoryList = ({med, medicalHistory, data, onChange, onClick, addHistory, hapusRiwayat, buttonStatus}) => {
   return(
     <table className="table">
       <thead>
@@ -16,7 +16,7 @@ const HistoryList = ({med, medicalHistory, data, onChange, onClick, addHistory, 
       </tr>
       </thead>
       <tbody>
-        <HistoryListInput med={med} onChange={onChange} onClick={addHistory}/>
+        <HistoryListInput med={med} onChange={onChange} onClick={addHistory} buttonStatus={buttonStatus}/>
         {medicalHistory.map(data => <HistoryListRow data={data} onClick={hapusRiwayat} />)}
 
       </tbody>
@@ -34,7 +34,8 @@ HistoryList.propTypes = {
   onClick:  PropTypes.function,
   addHistory: PropTypes.function,
   med: PropTypes.object.isRequired,
-  hapusRiwayat:  PropTypes.function
+  hapusRiwayat:  PropTypes.function,
+  buttonStatus: PropTypes.function
 };
 
 

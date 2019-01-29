@@ -7,11 +7,10 @@ export default function dataReducer(state = initialState.datas, action) {
   switch (action.type) {
     case types.LOAD_DATA_SUCCESS:
       return action.datas;
+    case types.UPDATE_DATA_SUCCESS:
+      return action.datas;
     case types.CREATE_DATA_SUCCESS:
-      return [
-        ...state,
-        Object.assign({}, action.data)
-      ];
+      return action.datas;
     case types.DELETE_DATA_SUCCESS:
       return action.datas;
 

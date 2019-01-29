@@ -6,7 +6,7 @@ class HomePage extends React.Component {
 		return (
 
 			<div className="jumbotron">
-				<h1>Data Pasien dan Rekam Medik Dokter Pudji</h1>
+				<h1>Data Pasien dan Rekam Medis Dokter Pudji</h1>
 				<p>Data pribadi pasien, rekam medis pasien </p>
 				<Link to="data" className="btn btn-primary btn-lg">Lebih Lanjut</Link>
 			</div>

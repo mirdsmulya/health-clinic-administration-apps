@@ -150,7 +150,7 @@ class DataApi {
         }
 
 
-        resolve(data);
+        resolve(Object.assign([], datas));
         debugger;
       }, 0);
     });
@@ -195,9 +195,9 @@ class DataApi {
 
         const indexOfDataToDelete = datas.findIndex(d =>
         d.id == dataId);
-        if (indexOfDataToDelete) {
+        if (indexOfDataToDelete > 0) {
           datas.splice(indexOfDataToDelete, 1);
-        }
+        } else { datas.shift();}
         datas = Object.assign([], datas);
         debugger;
         resolve(datas);

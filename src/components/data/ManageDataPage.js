@@ -193,6 +193,7 @@ class ManageDataPage extends React.Component {
                 onChange={this.updateMedState}
                 addHistory={this.addHistory}
                 hapusRiwayat={this.deleteHistory}
+                buttonStatus={this.state.delButton}
                 />
 
       </div>
@@ -240,17 +241,16 @@ function mapStateToProps(state, ownProps) {
   let med = {date:'', diagnose:'', therapy:''};
   const initialData = data;
   let errorPage;
-  med.date = String(getDateNumber());
+
   let initialMed = med;
   const dataId = ownProps.params.id;
   let medicalHistory = [];
   if (dataId && state.datas.length > 0) {
     data = getDataById(state.datas, dataId);
+    med.date = String(getDateNumber());
     if (!data) {
       errorPage = true;
     } else {medicalHistory =  data.medicalHistory;}
-
-
   } else {
     if (dataId) {
       errorPage = true;

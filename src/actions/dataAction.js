@@ -5,11 +5,11 @@ import * as types from './actionTypes';
 export function loadDataSuccess(datas) {
   return { type: types.LOAD_DATA_SUCCESS, datas};
 }
-export function updateDataSuccess(data) {
-  return { type: types.UPDATE_DATA_SUCCESS, data};
+export function updateDataSuccess(datas) {
+  return { type: types.UPDATE_DATA_SUCCESS, datas};
 }
-export function createDataSuccess(data) {
-  return { type: types.CREATE_DATA_SUCCESS, data};
+export function createDataSuccess(datas) {
+  return { type: types.CREATE_DATA_SUCCESS, datas};
 }
 export function addMedicalHistorySuccess(data) {
   return { type: types.ADD_MEDICAL_HIST_SUCCESS, data};

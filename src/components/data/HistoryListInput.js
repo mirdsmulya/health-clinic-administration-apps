@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import TextAreaInput from '../common/TextAreaInput';
 import TextInput from '../common/TextInput';
 
-const HistoryListInput = ({med, onChange, onClick}) => {
+const HistoryListInput = ({med, onChange, onClick, buttonStatus}) => {
   return(
     <tr>
     <td><TextInput
@@ -14,7 +14,7 @@ const HistoryListInput = ({med, onChange, onClick}) => {
         />
     </td>
       <td>
-      
+
         <TextInput
             name = "diagnose"
             placeholder= "Diagnosa"
@@ -30,7 +30,7 @@ const HistoryListInput = ({med, onChange, onClick}) => {
             value= {med.therapy}
           />
       </td>
-      <td><button className="btn" onClick={onClick}>Tambah Riwayat</button></td>
+      <td><button className="btn" onClick={onClick} disabled={buttonStatus}>Tambah Riwayat</button></td>
 
     </tr>
   );
@@ -40,7 +40,8 @@ const HistoryListInput = ({med, onChange, onClick}) => {
 HistoryListInput.propTypes = {
   med: React.PropTypes.object.isRequired,
   onChange: React.PropTypes.func,
-  onClick:  React.PropTypes.fucnc
+  onClick:  React.PropTypes.fucnc,
+  buttonStatus: React.PropTypes.func
 };
 
 export default HistoryListInput;

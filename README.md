@@ -25,10 +25,4 @@ This Apps mainly build by React and Redux platform, also with:
 - Bootstrap
 
 
-How to start:
 
-git clone git@github.com/mirdsmulya/health-clinic-administration-apps
-
-cd health-clinic-administration-apps
-
-npm start -s

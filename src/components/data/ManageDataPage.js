@@ -7,18 +7,14 @@ import HistoryList from './HistoryList';
 import HistoryListRow from './HistoryListRow';
 import HistoryListInput from './HistoryListInput';
 import DataApi from '../../api/mockDataPropApi';
-//import Router from 'react-router';
 import DataPage from './DataPage';
 import Toastr from 'toastr';
 
-
-class ManageDataPage extends React.Component {
-
+export class ManageDataPage extends React.Component {
   static willTransitionFrom(transition, component) {
     if (component.state.dirty && !confirm('Data ini belum di simpan, anda yakin ingin meninggalkannya?')) {
       transition.abort();
     }
-
   }
   constructor(props, context) {
     super(props, context);
@@ -32,7 +28,6 @@ class ManageDataPage extends React.Component {
       dirty: false
     };
     debugger;
-
     this.updateDataState = this.updateDataState.bind(this);
     this.onSave = this.onSave.bind(this);
     this.addHistory = this.addHistory.bind(this);
@@ -41,41 +36,26 @@ class ManageDataPage extends React.Component {
     this.validForm = this.validForm.bind(this);
     this.validHistory = this.validHistory.bind(this);
     this.onDelete = this.onDelete.bind(this);
-
   }
-
-  /*
-  static willTransitionFrom(transition, component) {
-    if (component.state.dirty && !confirm('Data ini belum di simpan, anda yakin ingin meninggalkannya?')) {
-      transition.abort();
-    }
-
-  }
-*/
 
   componentWillMount() {
     if (this.props.id == undefined) {
       this.setState({delButton: true});
     }
-
     if (this.props.errorPage) {
       this.context.router.push('/notFoundPage');
     }
   }
 
   updateDataState(event) {
-
     if (!this.state.dirty) {
       this.setState({dirty: true});
     }
-    //this.setState({dirty: true});
     const field = event.target.name;
     let data = Object.assign({}, this.state.data);
     data[field] = event.target.value;
     return this.setState({data: data});
-
   }
-
 
   updateMedState(event) {
     const field = event.target.name;
@@ -84,7 +64,6 @@ class ManageDataPage extends React.Component {
     return this.setState({med: med});
 
   }
-
 
   onSave(event) {
     let dataId = this.props.params.id;
@@ -101,11 +80,9 @@ class ManageDataPage extends React.Component {
     } else {
       event.preventDefault();
       Toastr.warning('Data Belum Lengkap');
-
     }
-
-
   }
+
   onDelete(event) {
     let id = this.props.id;
     if (confirm('Hapus data ini?')  == true ) {
@@ -114,15 +91,7 @@ class ManageDataPage extends React.Component {
       .then(Toastr.success('Data Berhasil Dihapus'));
       this.context.router.push('/datas');
       this.setState({data: this.props.initialData});
-      //.then(this.context.router.push('/data'));
-
-    } else {
-      event.preventDefault();
-
-      }
-
-
-
+    } else {event.preventDefault();}
   }
 
   addHistory(event) {
@@ -143,7 +112,6 @@ class ManageDataPage extends React.Component {
 
   }
 
-
   validForm() {
     let data = Object.assign({}, this.state.data);
     if (data.name.length > 0 &&
@@ -151,9 +119,7 @@ class ManageDataPage extends React.Component {
         data.address.length > 0 &&
         data.gender.length > 0) return true;
         return false;
-
   }
-
 
   validHistory() {
     let med = Object.assign({}, this.state.med);
@@ -171,14 +137,12 @@ class ManageDataPage extends React.Component {
         } else {
           Toastr.warning('Data Riwayat Belum Terisi Dengan Lengkap');
         }
-
   }
 
   render() {
     debugger;
     let stat= this.state.delButton;
     return(
-
       <div>
       <DataForm
         data={this.state.data}
@@ -186,22 +150,18 @@ class ManageDataPage extends React.Component {
         errors={this.state.errors}
         onSave={this.onSave}
         onDelete={this.onDelete}
-        buttonStatus={this.state.delButton}
-        />
+        buttonStatus={this.state.delButton} />
       <HistoryList medicalHistory={this.props.medicalHistory}
                 med={this.state.med}
                 onChange={this.updateMedState}
                 addHistory={this.addHistory}
                 hapusRiwayat={this.deleteHistory}
-                buttonStatus={this.state.delButton}
-                />
-
+                buttonStatus={this.state.delButton} />
       </div>
-
     );
-
   }
 }
+
 ManageDataPage.propTypes = {
   data: PropTypes.object.isRequired,
   datas: PropTypes.array.isRequired,
@@ -220,28 +180,24 @@ ManageDataPage.contextTypes = {
   router: PropTypes.object
 };
 
-
-function getDateNumber() {
+export function getDateNumber() {
   let d = new Date();
   d = d.getDate() +"/"+(d.getMonth() + 1) +"/"+ d.getFullYear();
-
   return d;
 }
-function getDataById(datas, id) {
+export function getDataById(datas, id) {
   const data = datas.filter(data => data.id == id);
   if (data) return data[0];
   debugger;
   return null;
-
 }
 
-function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state, ownProps) {
 
   let data = {id:'',name:'', gender:'', age:'', address:'', medicalHistory:[]};
   let med = {date:'', diagnose:'', therapy:''};
   const initialData = data;
   let errorPage;
-
   let initialMed = med;
   const dataId = ownProps.params.id;
   let medicalHistory = [];
@@ -257,7 +213,6 @@ function mapStateToProps(state, ownProps) {
     }
   }
   debugger;
-
   return {
     data: data,
     datas: state.datas,
@@ -267,7 +222,6 @@ function mapStateToProps(state, ownProps) {
     initialMed: initialMed,
     initialData: initialData,
     errorPage: errorPage
-
   };
 }
 
@@ -276,4 +230,5 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(dataAction, dispatch)
   };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDataPage);

@@ -10,7 +10,7 @@
     "open:src": "babel-node tools/srcServer.js",
     "lint": "node_modules/.bin/esw wepack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
-    "test": "mocha --reporter progress tools/tesSetup.js \"src/**/*.test.js\"",
+    "test": "mocha --reporter spec tools/tesSetup.js \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {

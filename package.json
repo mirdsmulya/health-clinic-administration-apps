@@ -1,9 +1,9 @@
 {
-  "name": "pluralsight-redux-starter",
+  "name": "health-clinic-administration-apps",
   "version": "1.0.0",
-  "description": "Starter kit for React and Redux Pluralsight course by Cory House",
-  "author": "Cory House",
-  "license": "MIT",
+  "description": "dr. Pudji's Health Clinic Administration App",
+  "author": "Mirdan",
+  "license": " ",
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel open:src lint:watch test:watch",
@@ -16,6 +16,7 @@
   "dependencies": {
     "babel-polyfill": "6.8.0",
     "bootstrap": "3.3.6",
+    "canvasjs": "^1.8.1",
     "jquery": "2.2.3",
     "react": "15.0.2",
     "react-dom": "15.0.2",
@@ -67,6 +68,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/coryhouse/pluralsight-redux-starter"
+    "url": "https://github.com/mirdsmulya/health-clinic-administration-apps"
   }
 }

@@ -10,7 +10,7 @@ import DataSearch from './DataSearch';
 //import {browserHistory} from 'react-router';
 import DataApi from '../../api/mockDataPropApi';
 
-class DataPage extends React.Component {
+export class DataPage extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {

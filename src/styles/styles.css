@@ -140,3 +140,13 @@ body, html {
 	background-color: #f1f1f1;
 	text-align: right;
 }
+
+
+/* ------- Stats Padding ----*/
+
+.statsPadding {
+
+	padding-top: 5%;
+	margin-right:10%;
+	margin-left:10%;
+}

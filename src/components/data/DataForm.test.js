@@ -25,7 +25,7 @@ describe('React Component for DataForm Test', () => {
     expect(wrapper.find('h1').text()).toEqual('Pengaturan Data Pasien');
     expect(wrapper.find('TextInput').length).toBe(3);
     expect(wrapper.find('SelectInput').length).toBe(1);
-    expect(wrapper.find('input').length).toBe(2);
+    expect(wrapper.find('SubmitInput').length).toBe(2);
     expect(wrapper.find('[id="save"]').simulate('click'));
     expect(wrapper.find('[id="delete"]').simulate('click'));
 

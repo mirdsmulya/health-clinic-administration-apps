@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
+import SubmitInput from '../common/SubmitInput';
 
 const DataForm = ({data, onSave, onChange, allDatas, options, onDelete, buttonStatus}) => {
   return (
@@ -8,7 +9,7 @@ const DataForm = ({data, onSave, onChange, allDatas, options, onDelete, buttonSt
       <div>
       <h1>Pengaturan Data Pasien</h1>
       </div>
-      
+
       <TextInput
         name="name"
         label="Name"
@@ -31,22 +32,23 @@ const DataForm = ({data, onSave, onChange, allDatas, options, onDelete, buttonSt
       <TextInput
         name="address"
         label="Alamat"
+        type="text"
         value={data.address}
         onChange={onChange} />
-
-      <input
+      <div>
+      <SubmitInput
         id="save"
-        type="submit"
-        className="btn btn-primary"
-        onClick={onSave} />
+        buttonType="btn btn-primary"
+        onClick={onSave}
+        value="Save" />
 
-      <input
+      <SubmitInput
         id="delete"
-        type="submit"
-        disabled={buttonStatus}
+        buttonStatus={buttonStatus}
         value="Delete"
-        className="btn btn-danger pull right"
+        buttonType="btn btn-danger pull right"
         onClick={onDelete} />
+    </div>
     </form>
   );
 };
@@ -58,7 +60,7 @@ DataForm.propTypes = {
   allDatas: React.PropTypes.array,
   options: React.PropTypes.object.isRequired,
   onDelete: React.PropTypes.function,
-  buttonStatus: React.PropTypes.func
+  buttonStatus: React.PropTypes.boolean
 };
 
 export default DataForm;

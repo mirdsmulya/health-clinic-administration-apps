@@ -9,6 +9,7 @@ const Header = () => {
 	<IndexLink to="/" activeClassName="active">Beranda</IndexLink>
 	<Link to="/data" activeClassName="active">Data Pasien</Link>
 	<Link to="/antrian" activeClassName="active">Antrian</Link>
+	<Link to="/stats" activeClassName="active">Statistik</Link>
   <a href="javascript:void(0);" className="icon" onClick="myFunction()">
     <i className="fa fa-bars"></i>
   </a>
@@ -22,33 +23,3 @@ const Header = () => {
 };
 
 export default Header;
-
-/*
-
-
-<div clasName="topnav">
-</div>
-
-
-<nav>
-<IndexLink to="/" activeClassName="active">Beranda</IndexLink>
-{" | "}
-<Link to="/about" activeClassName="active">Tentang</Link>
-{" | "}
-<Link to="/data" activeClassName="active">Data Pasien</Link>
-{" | "}
-<Link to="/antrian" activeClassName="active">Antrian</Link>
-
-</nav>
-
-
-
-
-
-
-
-
-
-
-
-*/

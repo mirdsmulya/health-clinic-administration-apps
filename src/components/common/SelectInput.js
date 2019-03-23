@@ -37,34 +37,3 @@ SelectInput.propTypes = {
 };
 
 export default SelectInput;
-
-
-/*
-name={name}
-value={value}
-onChange={onChange}
-className="form-control">
-<option value="">{defaultOption}</option>
-{options.map((option) => {
-  return <option key={option.value} value={option.value}>{option.text}</option>;
-
-
-
-  <option value="">{value}</option>
-  <option value="Pria">Pria</option>
-  <option value="Wanita">Wanita</option>
-
-
-
-
-
-              <option value="">{defaultOption}</option>
-              {options.map((option) => {
-                <option value={option.value} key={option.value}>{option.text}</option>;})}
-
-
-
-
-
-
-  */

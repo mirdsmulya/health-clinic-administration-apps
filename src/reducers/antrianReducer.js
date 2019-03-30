@@ -20,8 +20,7 @@ export default function antrianReducer(state= initialState.antrian, action) {
       return action.antrian;
     case type.DELETE_ANTRIAN_SUCCESS:
       return action.antrian;
-
-
+      
     default:
       return state;
 

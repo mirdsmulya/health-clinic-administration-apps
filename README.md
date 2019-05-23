@@ -15,7 +15,7 @@ There are two main data that addressed in this database:
 This Application also has "Antrian" feature, that can manage patients who comes to My mother clinic to queue them in order 
 base on their arrival.
 
-This Apps mainly build by React and Redux platform, also with:
+This Apps mainly build by ReactJS, also with:
 - Webpack
 - Npm scripts
 - Npm Package Manager

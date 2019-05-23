@@ -21,6 +21,7 @@ This Apps mainly build by React and Redux platform, also with:
 - Npm Package Manager
 - CSS
 - HTML
+- Redux
 - ES6
 - Bootstrap
 

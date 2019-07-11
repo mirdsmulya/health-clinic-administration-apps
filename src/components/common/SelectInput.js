@@ -11,10 +11,13 @@ const SelectInput = ({name, value, defaultOption, options, label, onChange, erro
                   value={value}
                   onChange={onChange}>
           <option value={value}>{value}</option>
-          <option value="">--</option>
-          <option value="Pria">Pria</option>
-          <option value="Wanita">Wanita</option>
-
+          {options.map(option => {
+            return (
+              <option key={option.gen} value={option.gen}>
+                {option.gen}
+              </option>
+            );
+          })}
 
           </select>
           {error && <div className="alert alert-danger">{error}</div>}

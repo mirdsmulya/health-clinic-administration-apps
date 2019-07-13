@@ -35,7 +35,7 @@ const DataForm = ({data, onSave, onChange, allDatas, options, onDelete, buttonSt
         type="text"
         value={data.address}
         onChange={onChange} />
-      <div>
+      <div className="margin-top">
       <SubmitInput
         id="save"
         buttonType="btn btn-primary"
@@ -54,13 +54,13 @@ const DataForm = ({data, onSave, onChange, allDatas, options, onDelete, buttonSt
 };
 
 DataForm.propTypes = {
-  data: React.PropTypes.object.isRequired,
+  data: React.PropTypes.object,
   onChange: React.PropTypes.function,
   onSave: React.PropTypes.function,
   allDatas: React.PropTypes.array,
-  options: React.PropTypes.object.isRequired,
+  options: React.PropTypes.array,
   onDelete: React.PropTypes.function,
-  buttonStatus: React.PropTypes.boolean
+  buttonStatus: React.PropTypes.function
 };
 
 export default DataForm;

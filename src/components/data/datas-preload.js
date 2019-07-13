@@ -78,7 +78,7 @@ DatasPreload.propTypes = {
 	dataId: PropTypes.string,
 	logicButton: PropTypes.func,
   data: PropTypes.object.isRequired,
-  result: PropTypes.object
+  result: PropTypes.array
  };
 
  DatasPreload.contextTypes = {
@@ -110,22 +110,8 @@ function mapStateToProps(state, ownProps) {
   //let data = datas.filter(data => data.id == dataId);
   let data = getDataById(datas, id);
 
-  //let status = antrian.includes(data => data.id == id);
   let result = antrian.filter(data => data.id == id);
-  //data.status = !data.status;
-  //data = Object.assign({}, data);
 
-  /*
-
-  let data = dataCheck(state.antrian, dataId)
-  if (data == null) {
-    data = getDataById(state.datas, dataId);
-    debugger;
-  } else {
-    data = null;
-    debugger;
-  }
-  */
 
 
 	debugger;

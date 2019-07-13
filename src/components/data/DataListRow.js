@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import ButtonEnhance from '../common/ButtonEnhance';
 
-const DataListRow = ({data, onEntry, logicButton, className}) => {
+const DataListRow = ({data, logicButton, className}) => {
   return(
     <tr>
       <td><Link to={'/datas/' + data.id}>{data.name}</Link></td>
@@ -18,10 +18,9 @@ const DataListRow = ({data, onEntry, logicButton, className}) => {
 
 
 DataListRow.propTypes = {
-  data: PropTypes.object.isRequired,
-  onEntry: PropTypes.function,
-  logicButton: PropTypes.function,
-  className:  PropTypes.function
+  data: React.PropTypes.object,
+  logicButton: React.PropTypes.function,
+  className:  React.PropTypes.function
 };
 
 export default DataListRow;

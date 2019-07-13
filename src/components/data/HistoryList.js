@@ -17,7 +17,7 @@ const HistoryList = ({med, medicalHistory, data, onChange, onClick, addHistory, 
       </thead>
       <tbody>
         <HistoryListInput med={med} onChange={onChange} onClick={addHistory} buttonStatus={buttonStatus}/>
-        {medicalHistory.map(data => <HistoryListRow data={data} onClick={hapusRiwayat} />)}
+        {medicalHistory.map(data => <HistoryListRow data={data} key={data.date} onClick={hapusRiwayat} />)}
 
       </tbody>
     </table>
@@ -28,14 +28,14 @@ const HistoryList = ({med, medicalHistory, data, onChange, onClick, addHistory, 
 
 
 HistoryList.propTypes = {
-  medicalHistory: PropTypes.array.isRequired,
-  data: PropTypes.object.isRequired,
-  onChange: PropTypes.function,
-  onClick:  PropTypes.function,
-  addHistory: PropTypes.function,
-  med: PropTypes.object.isRequired,
-  hapusRiwayat:  PropTypes.function,
-  buttonStatus: PropTypes.function
+  medicalHistory: React.PropTypes.array ,
+  data: React.PropTypes.object ,
+  onChange: React.PropTypes.function ,
+  onClick:  React.PropTypes.function ,
+  addHistory: React.PropTypes.function ,
+  med: React.PropTypes.object ,
+  hapusRiwayat:  React.PropTypes.function ,
+  buttonStatus: React.PropTypes.function
 };
 
 

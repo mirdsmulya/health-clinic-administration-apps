@@ -19,7 +19,7 @@ const DataList = ({datas, onEntry, logicButton}) => {
       </thead>
       <tbody>
         {datas.map(data =>
-          <DataListRow key={data.id} data={data} onEntry={onEntry} logicButton={logicButton} />)}
+          <DataListRow key={data.id} data={data} logicButton={logicButton} />)}
       </tbody>
     </table>
 
@@ -29,9 +29,8 @@ const DataList = ({datas, onEntry, logicButton}) => {
 
 
 DataList.propTypes = {
-  datas: PropTypes.array.isRequired,
-  onEntry: PropTypes.function,
-  logicButton: PropTypes.func
+  datas: PropTypes.array,
+  logicButton: React.PropTypes.function 
 };
 
 export default DataList;

@@ -30,7 +30,7 @@ const HistoryListInput = ({med, onChange, onClick, buttonStatus}) => {
             onChange = {onChange}
             value= {med.therapy} />
       </td>
-      <td><button className="btn" onClick={onClick} disabled={buttonStatus}>Tambah Riwayat</button></td>
+      <td><button className="btn margin-top" onClick={onClick} disabled={buttonStatus}>Tambah Riwayat</button></td>
     </tr>
   );
 };
@@ -38,7 +38,7 @@ const HistoryListInput = ({med, onChange, onClick, buttonStatus}) => {
 HistoryListInput.propTypes = {
   med: React.PropTypes.object.isRequired,
   onChange: React.PropTypes.func,
-  onClick:  React.PropTypes.fucnc,
+  onClick:  React.PropTypes.func,
   buttonStatus: React.PropTypes.func
 };
 

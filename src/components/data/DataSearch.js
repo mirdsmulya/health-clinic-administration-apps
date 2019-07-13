@@ -1,11 +1,11 @@
 import React, {PropTypes} from 'react';
 
 
-const DataSearch = ({name, value, onChange, label}) => {
+const DataSearch = ({name, value, onChange}) => {
 
   return (
     <div className="wrapperClass">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}></label>
       <div className="field">
         <input
         name={name}
@@ -23,12 +23,9 @@ const DataSearch = ({name, value, onChange, label}) => {
 
 DataSearch.propTypes = {
   //errors: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
+  name: React.PropTypes.string,
   onChange: React.PropTypes.func,
-  value: React.PropTypes.string.isRequired,
-
-  //placeholder: React.PropTypes.string.isRequired,
-  label: React.PropTypes.string.isRequired
+  value: React.PropTypes.string
 };
 
 

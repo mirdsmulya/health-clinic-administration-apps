@@ -20,7 +20,6 @@ export class DataPage extends React.Component {
 			className: true
 		};
 		debugger;
-		this.onEntry = this.onEntry.bind(this);
 		this.searchHandler = this.searchHandler.bind(this);
 		this.className = this.className.bind(this);
 		const datasConstant = this.props.datas;
@@ -30,7 +29,7 @@ export class DataPage extends React.Component {
 	componentWillMount() {
 		let dataId = this.props.id;
 		let datas = this.props.datas;
-		this.setState({datas: this.props.datas})
+		this.setState({datas: this.props.datas});
 		debugger;
 
 	}
@@ -46,18 +45,7 @@ export class DataPage extends React.Component {
 			return <button className="btn btn-info">Masukan Antrian</button>;
 				return <button classNmae="btn btn-danger">Dalam Antrian</button>;
 	}
-	onEntry(event) {
-		event.preventDefault();
-		if (this.state.logicButton == true) {
-			this.setState({logicButton: false});
-			return "Dalam Antrian";
-		}
-		else {
-			this.setState({logicButton: true});
-			return "Masukan Antrian";
-		}
 
-	}
 
 
 	className(event) {
@@ -98,7 +86,6 @@ export class DataPage extends React.Component {
 			<Link to="datas" className="btn btn-primary btn-lg">Tambah</Link>
 			<DataSearch onChange={this.searchHandler} />
 			<DataList datas={this.state.datas}
-								onEntry={this.onEntry}
 								logicButton={this.state.logicButton}
 								className={this.className}
 				/>
@@ -109,11 +96,11 @@ export class DataPage extends React.Component {
 }
 
 DataPage.propTypes = {
-	actions: PropTypes.object.isRequired,
-	datas: PropTypes.array.isRequired,
-	onentry: PropTypes.object.isRequired,
+	actions: PropTypes.object,
+	datas: PropTypes.array,
 	dataId: PropTypes.string,
-	logicButton: PropTypes.func
+	logicButton: React.PropTypes.function ,
+	id: PropTypes.string
  };
 
  DataPage.contextTypes = {

@@ -25,7 +25,9 @@ export class ManageDataPage extends React.Component {
       medicalHistory: Object.assign({}, this.props.medicalHistory),
       formPass: false,
       delButton: false,
-      dirty: false
+      dirty: false,
+    //gender: [{input:"Pria"},{input:"Wanita"}]
+      gender: Object.assign([], this.props.gender)
     };
     debugger;
     this.updateDataState = this.updateDataState.bind(this);
@@ -140,9 +142,12 @@ export class ManageDataPage extends React.Component {
   }
 
   render() {
-    debugger;
+
     let stat= this.state.delButton;
+    let gend= this.state.gender;
+    debugger;
     return(
+      <div>
       <div>
       <DataForm
         data={this.state.data}
@@ -150,7 +155,10 @@ export class ManageDataPage extends React.Component {
         errors={this.state.errors}
         onSave={this.onSave}
         onDelete={this.onDelete}
-        buttonStatus={this.state.delButton} />
+        buttonStatus={this.state.delButton}
+        options={this.state.gender}/>
+    </div>
+    <div className="margin-top">
       <HistoryList medicalHistory={this.props.medicalHistory}
                 med={this.state.med}
                 onChange={this.updateMedState}
@@ -158,22 +166,25 @@ export class ManageDataPage extends React.Component {
                 hapusRiwayat={this.deleteHistory}
                 buttonStatus={this.state.delButton} />
       </div>
+    </div>
     );
   }
 }
 
 ManageDataPage.propTypes = {
-  data: PropTypes.object.isRequired,
-  datas: PropTypes.array.isRequired,
-  medicalHistory: PropTypes.array.isRequired,
-  med: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
+  data: PropTypes.object ,
+  datas: PropTypes.array ,
+  medicalHistory: PropTypes.array ,
+  med: PropTypes.object ,
+  actions: PropTypes.object ,
   alertNotification: PropTypes.func,
-  errorPage: PropTypes.boolean,
+  errorPage: React.PropTypes.function ,
   initialMed: PropTypes.object,
   params: PropTypes.object,
   id:PropTypes.object,
-  initialData: PropTypes.object
+  initialData: PropTypes.object,
+  delButton: React.PropTypes.array ,
+  gender: PropTypes.object
 };
 
 ManageDataPage.contextTypes = {
@@ -201,6 +212,7 @@ export function mapStateToProps(state, ownProps) {
   let initialMed = med;
   const dataId = ownProps.params.id;
   let medicalHistory = [];
+  let gender = [{input:"Pria"},{input:"Wanita"}];
   if (dataId && state.datas.length > 0) {
     data = getDataById(state.datas, dataId);
     med.date = String(getDateNumber());
@@ -221,7 +233,8 @@ export function mapStateToProps(state, ownProps) {
     id: dataId,
     initialMed: initialMed,
     initialData: initialData,
-    errorPage: errorPage
+    errorPage: errorPage,
+    gender: gender
   };
 }
 

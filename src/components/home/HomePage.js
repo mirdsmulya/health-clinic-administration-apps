@@ -8,10 +8,11 @@ class HomePage extends React.Component {
 			<div className="bg-image img1"></div>
 			<div className="bg-image img2"></div>
 			<div className="bg-image img3"></div>
-			<div className="bg-image img4"></div>
 			<div className="bg-image img5"></div>
 
-			<div className="bg-text">WELCOME</div></div>
+
+			<div className="bg-text">WELCOME </div>
+			</div>
 
 
 		);
@@ -39,7 +40,14 @@ export default HomePage;
 </div>
 
 
+<div>
+<div className="bg-image img1"></div>
+<div className="bg-image img2"></div>
+<div className="bg-image img3"></div>
+<div className="bg-image img4"></div>
+<div className="bg-image img5"></div>
 
+<div className="bg-text">WELCOME</div></div>
 
 
 */

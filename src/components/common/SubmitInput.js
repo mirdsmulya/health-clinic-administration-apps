@@ -20,7 +20,7 @@ SubmitInput.propTypes = {
   id: React.PropTypes.string,
   onClick: React.PropTypes.func,
   buttonType: React.PropTypes.string,
-  buttonStatus: React.PropTypes.boolean,
+  buttonStatus: React.PropTypes.func.isRequired,
   value: React.PropTypes.string
 };
 export default SubmitInput;

@@ -13,8 +13,8 @@ const SelectInput = ({name, value, defaultOption, options, label, onChange, erro
           <option value={value}>{value}</option>
           {options.map(option => {
             return (
-              <option key={option.gen} value={option.gen}>
-                {option.gen}
+              <option key={option.input} value={option.input}>
+                {option.input}
               </option>
             );
           })}
@@ -28,8 +28,8 @@ const SelectInput = ({name, value, defaultOption, options, label, onChange, erro
 };
 
 SelectInput.propTypes = {
-  name: React.PropTypes.object.isRequired,
-  value: React.PropTypes.object,
+  name: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string.isRequired,
   onChange: React.PropTypes.func,
   defaultOption: React.PropTypes.string,
   option: React.PropTypes.string,

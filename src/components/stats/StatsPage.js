@@ -14,7 +14,9 @@ class StatsPage extends React.Component {
     super(props, context);
     this.state = {
       stat: Object.assign({}, this.props.stat),
-      yearPicked: Object.assign({}, this.props.yearPicked)
+      yearPicked: "2017",
+      stats: Object.assign({}, this.props.stats),
+      yearList: Object.assign([], this.props.yearList)
     };
     debugger;
     this.updateFilterState = this.updateFilterState.bind(this);
@@ -29,27 +31,34 @@ class StatsPage extends React.Component {
   **/
 
   updateFilterState(event) {
+
+    const yearPicked = event.target.value;
+    this.setState({yearPicked: yearPicked});
+    let stats = Object.assign([], this.state.stats);
+    let statResult = this.filterStats(yearPicked, stats);
+    this.setState({stat: statResult});
     debugger;
-    const value = event.target.value;
-    this.setState({yearPicked: value});
-    //let yearPicked = Object.assign({}, this.state.yearPicked);
-    //let stats = yearFilter(this.props.stats, yearPicked);
-    //this.setState({stat: stats});
+  }
 
-
-
-    //this.props.actions.loadSpecificStats(field);
+  filterStats(yearPicked, stats) {
+    debugger;
+    if (yearPicked) {
+      let result = stats.find( data => data.year == yearPicked );
+      return result;
+    }
   }
 
   render() {
     let year = this.state.yearPicked;
+    let years = this.state.yearList;
+    let stat = this.state.stat;
     debugger;
 		const options = {
 			animationEnabled: true,
 			exportEnabled: true,
 			theme: "light1", // "light1", "dark1", "dark2"
 			title:{
-				text: "Statistik Jumlah Pasien Tahun 2018"
+				text: "Statistik Jumlah Pasien Tahun " + year
 			},
 			axisY: {
 				title: "Jumlah Pasien",
@@ -66,36 +75,23 @@ class StatsPage extends React.Component {
 				toolTipContent: "Week {x}: {y}%",
         dataPoints: this.state.stat.data
 
-      /**
-				dataPoints: [
-					{ x: 1, y: 64 },
-					{ x: 2, y: 61 },
-					{ x: 3, y: 64 },
-					{ x: 4, y: 62 },
-					{ x: 5, y: 64 },
-					{ x: 6, y: 60 },
-					{ x: 7, y: 58 },
-					{ x: 8, y: 59 },
-					{ x: 9, y: 53 },
-					{ x: 10, y: 54 },
-					{ x: 11, y: 61 },
-					{ x: 12, y: 60 }
-				]
-        **/
+
 			}]
 		};
 		return (
-    <div>
 		<div className="statsPadding">
+
       <StatsFilter
-        stats={this.state.yearPicked}
-        onChange={this.updateFilterState}/>
+        value={this.state.yearPicked}
+        onChange={this.updateFilterState}
+        options = {this.state.yearList}
+        />
+
 
 			<CanvasJSChart options = {options}
 				/* onRef={ref => this.chart = ref} */
 			/>
 		//	{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		</div>
 
     </div>
 		);
@@ -104,8 +100,10 @@ class StatsPage extends React.Component {
 //export default StatsPage;
 
 StatsPage.propTypes = {
-  actions: React.PropTypes.func,
-  stats: React.PropTypes.object
+  actions: React.PropTypes.object,
+  stats: React.PropTypes.array,
+  stat: React.PropTypes.object,
+  yearList: React.PropTypes.array
 };
 
 export function yearFilter(stats, yearPicked) {
@@ -117,15 +115,27 @@ export function yearFilter(stats, yearPicked) {
   }
 }
 
-export function mapStateToProps(state, ownProps) {
+export function createYearList(stats) {
+  let result;
+  let temp = [];
+  result = stats.find(data => {
+     temp.push({input: data.year});
+  });
   debugger;
+  return temp;
+
+}
+
+export function mapStateToProps(state, ownProps) {
+
   let initialYearPicked = 2017;
-  let yearPicked;
   let stat = yearFilter(state.stats, initialYearPicked);
+  let yearList = createYearList(state.stats);
   //stat = stat.data;
   debugger;
 
   return {
+    yearList: yearList,
     stat: stat,
     stats : state.stats,
     yearPicked: initialYearPicked

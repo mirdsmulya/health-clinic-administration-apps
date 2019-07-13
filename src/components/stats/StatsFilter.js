@@ -1,14 +1,15 @@
 import React, {PropTypes} from 'react';
 import SelectInput from '../common/SelectInput';
 
-const StatsFilter = ({stats, onChange, options}) => {
+const StatsFilter = ({stats, onChange, options, value}) => {
   return (
     <form>
       <SelectInput
         name= "year"
         label= "Tahun"
-        value = {stats.year}
+        value = {value}
         onChange = {onChange}
+        options= {options}
         />
     </form>
   );
@@ -17,7 +18,8 @@ const StatsFilter = ({stats, onChange, options}) => {
 StatsFilter.propTypes = {
   stats: React.PropTypes.object,
   onChange: React.PropTypes.func,
-  options: React.PropTypes.object
+  options: React.PropTypes.array,
+  value: React.PropTypes.string
 };
 
 

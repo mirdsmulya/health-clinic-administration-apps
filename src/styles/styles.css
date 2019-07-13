@@ -26,7 +26,7 @@ nav {
 
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color: #333333;
 	padding-top: 50px;
 }
 
@@ -113,6 +113,13 @@ body, html {
 .img3 { background-image: url("../images/Medical-N.jpg"); }
 .img4 { background-image: url("../images/perangkat.jpg"); }
 .img5 { background-image: url("../images/physicians.jpg"); }
+.headerimg {
+	background-image: url("../images/headerawan.jpg");
+	width: 100%;
+	height: 150px;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 
 /* Position text in the middle of the page/image */
 .bg-text {
@@ -152,4 +159,8 @@ body, html {
 	padding-top: 5%;
 	margin-right:10%;
 	margin-left:10%;
+}
+
+.margin-top {
+	margin-top: 20px;
 }

@@ -11,6 +11,7 @@ const Header = () => {
 	<Link to="/data" activeClassName="active">Data Pasien</Link>
 	<Link to="/antrian" activeClassName="active">Antrian</Link>
 	<Link to="/stats" activeClassName="active">Statistik</Link>
+	<Link to="/location" activeClassName="active">Location</Link>
   <a href="javascript:void(0);" className="icon" onClick="myFunction()">
     <i className="fa fa-bars"></i>
   </a>

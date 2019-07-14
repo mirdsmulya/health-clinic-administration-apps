@@ -10,6 +10,7 @@ import DatasPreload from './components/data/datas-preload';
 import AntrianPreload from './components/antrian/antrian-preload';
 import NotFoundPage from './components/notFoundPage';
 import StatsPage from './components/stats/StatsPage';
+import LocationPage from './components/maps/locationPage';
 
 const NotFoundRoute = Route.NotFoundRoute;
 const DefaultRoute = Route.DefaultRoute;
@@ -27,6 +28,7 @@ export default (
 		<Route path="antrian-preload/:id" component={AntrianPreload} />
 		<Route path="notFoundPage" component={NotFoundPage} />
 		<Route path="stats" component={StatsPage} />
+		<Route path="location" component={LocationPage} />
 	</Route>
 );
 
